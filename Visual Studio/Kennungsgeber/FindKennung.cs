@@ -80,11 +80,8 @@ namespace Kennungsgeber
 		{
 			List<CodeItem> newCodeList = new List<CodeItem>();
 			
-			//newCodeList.Add(new CodeItem(CodeItem.CODE_LTR));
-			newCodeList.Add(new CodeItem(CodeItem.CODE_WR));
-			newCodeList.Add(new CodeItem(CodeItem.CODE_ZL));
 
-			ShiftState shiftState = ShiftState.Letters;
+			ShiftState shiftState = ShiftState.Unknown;
 			for (int i = 0; i < wunschKennung.Length; i++)
 			{
 				ShiftState ss;
@@ -93,7 +90,8 @@ namespace Kennungsgeber
 				{
 					continue;
 				}
-				if (ss != ShiftState.Both && ss != shiftState)
+			
+				if (ss != ShiftState.Both && (ss != shiftState || shiftState==ShiftState.Unknown))
 				{
 					if (ss == ShiftState.Letters)
 					{
@@ -107,6 +105,11 @@ namespace Kennungsgeber
 				}
 				newCodeList.Add(new CodeItem(code.Value));
 			}
+
+			// insert after LTR or FIG
+			newCodeList.Insert(1, new CodeItem(CodeItem.CODE_WR));
+			newCodeList.Insert(2, new CodeItem(CodeItem.CODE_ZL));
+
 			return newCodeList;
 		}
 

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeItem.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="FindKennung.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="KgListView.cs">
@@ -80,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -94,5 +96,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\BuildDate.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>set hour=%25time:~0,2%25
+set min=%25time:~3,2%25
+echo %25date%25 %25hour%25:%25min%25 &gt; "$(ProjectDir)\Properties\BuildDate.txt"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

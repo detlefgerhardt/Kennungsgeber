@@ -38,10 +38,10 @@
 			this.NewKennungTb = new System.Windows.Forms.TextBox();
 			this.ToRightBtn = new System.Windows.Forms.Button();
 			this.ToLeftBtn = new System.Windows.Forms.Button();
-			this.KgNew = new Kennungsgeber.KgListView();
-			this.KgOrg = new Kennungsgeber.KgListView();
 			this.KaemmeLbl = new System.Windows.Forms.Label();
 			this.WunschKgLbl = new System.Windows.Forms.Label();
+			this.KgNew = new Kennungsgeber.KgListView();
+			this.KgOrg = new Kennungsgeber.KgListView();
 			this.SuspendLayout();
 			// 
 			// OrgKennungTb
@@ -58,9 +58,9 @@
 			this.IstKennungLbl.AutoSize = true;
 			this.IstKennungLbl.Location = new System.Drawing.Point(675, 13);
 			this.IstKennungLbl.Name = "IstKennungLbl";
-			this.IstKennungLbl.Size = new System.Drawing.Size(67, 13);
+			this.IstKennungLbl.Size = new System.Drawing.Size(73, 13);
 			this.IstKennungLbl.TabIndex = 7;
-			this.IstKennungLbl.Text = "Ist-Kennung:";
+			this.IstKennungLbl.Text = "Existing code:";
 			this.IstKennungLbl.Click += new System.EventHandler(this.IstKennungLbl_Click);
 			// 
 			// WunschKennungLbl
@@ -68,9 +68,9 @@
 			this.WunschKennungLbl.AutoSize = true;
 			this.WunschKennungLbl.Location = new System.Drawing.Point(675, 71);
 			this.WunschKennungLbl.Name = "WunschKennungLbl";
-			this.WunschKennungLbl.Size = new System.Drawing.Size(96, 13);
+			this.WunschKennungLbl.Size = new System.Drawing.Size(73, 13);
 			this.WunschKennungLbl.TabIndex = 8;
-			this.WunschKennungLbl.Text = "Wunsch-Kennung:";
+			this.WunschKennungLbl.Text = "Desired code:";
 			// 
 			// WunschKennungTb
 			// 
@@ -137,6 +137,24 @@
 			this.ToLeftBtn.Text = "<-";
 			this.ToLeftBtn.UseVisualStyleBackColor = true;
 			// 
+			// KaemmeLbl
+			// 
+			this.KaemmeLbl.AutoSize = true;
+			this.KaemmeLbl.Location = new System.Drawing.Point(9, 9);
+			this.KaemmeLbl.Name = "KaemmeLbl";
+			this.KaemmeLbl.Size = new System.Drawing.Size(174, 13);
+			this.KaemmeLbl.TabIndex = 18;
+			this.KaemmeLbl.Text = "Existing answerback code (combs):";
+			// 
+			// WunschKgLbl
+			// 
+			this.WunschKgLbl.AutoSize = true;
+			this.WunschKgLbl.Location = new System.Drawing.Point(448, 9);
+			this.WunschKgLbl.Name = "WunschKgLbl";
+			this.WunschKgLbl.Size = new System.Drawing.Size(134, 13);
+			this.WunschKgLbl.TabIndex = 19;
+			this.WunschKgLbl.Text = "Desired answerback code:";
+			// 
 			// KgNew
 			// 
 			this.KgNew.Location = new System.Drawing.Point(451, 26);
@@ -150,24 +168,6 @@
 			this.KgOrg.Name = "KgOrg";
 			this.KgOrg.Size = new System.Drawing.Size(400, 548);
 			this.KgOrg.TabIndex = 13;
-			// 
-			// KaemmeLbl
-			// 
-			this.KaemmeLbl.AutoSize = true;
-			this.KaemmeLbl.Location = new System.Drawing.Point(9, 9);
-			this.KaemmeLbl.Name = "KaemmeLbl";
-			this.KaemmeLbl.Size = new System.Drawing.Size(106, 13);
-			this.KaemmeLbl.TabIndex = 18;
-			this.KaemmeLbl.Text = "Vorhandene Kämme / Kennung:";
-			// 
-			// WunschKgLbl
-			// 
-			this.WunschKgLbl.AutoSize = true;
-			this.WunschKgLbl.Location = new System.Drawing.Point(448, 9);
-			this.WunschKgLbl.Name = "WunschKgLbl";
-			this.WunschKgLbl.Size = new System.Drawing.Size(68, 13);
-			this.WunschKgLbl.TabIndex = 19;
-			this.WunschKgLbl.Text = "Wunsch-KG:";
 			// 
 			// MainForm
 			// 

@@ -115,7 +115,7 @@ namespace Kennungsgeber
 				var modCharCol = new DataGridViewTextBoxColumn
 				{
 					Name = "modchar",
-					HeaderText = "Mögliche Zeichen",
+					HeaderText = "possible Characters",
 					Width = 174
 				};
 				KgView.Columns.Add(modCharCol);

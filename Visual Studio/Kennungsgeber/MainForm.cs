@@ -16,10 +16,8 @@ namespace Kennungsgeber
 		{
 			InitializeComponent();
 
-			//byte inv = CodeItem.InvertCode(0x10);
-			//string chr = CodeItem.CodeToChar(25, ShiftState.Letters);
+			this.Text = Helper.GetVersion();
 
-			
 			KgOrg.Init(KgListView.KgType.Org, true);
 			KgNew.Init(KgListView.KgType.New, false);
 

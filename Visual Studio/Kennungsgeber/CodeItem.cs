@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kennungsgeber
 {
-	public enum ShiftState { Letters, Figures, Both};
+	public enum ShiftState { Letters, Figures, Both, Unknown };
 
 	[DataContract(Namespace = "")]
 	public class CodeItem
