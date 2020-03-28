@@ -12,8 +12,8 @@ Damit eignet sich das Programm auch zur Analyse vorhandener Kennungsgeber, falls
 Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen Kämmen erzeugt werden kann und welche Kämme dafür geändert werden müssen. Nicht verwendete Kämme sind grau dargestellt.
 Nach CCITT-Vorgaben wird der Kennung automatisch eine BU- oder ZI-Umschaltung sowie ein WR und ZL (neue Zeile) vorangestellt.
 
-Vorsicht: Bitte überprüfe manuell, ob die Berechnungen des Progamms korrekt sind, bevor du Kämme unwiederbringlich modifizierst.
+**Warnung! Bitte überprüfe manuell, ob die Berechnungen des Progamms korrekt sind, bevor du Kämme unwiederbringlich modifizierst!**
 
-Hinweis: Bei Fernschreibern, die noch ihre historische Originalkennung besitzen, sollte diese auf keinen Fall verändert werden! Über die Kennung ist es meistens möglich, den ehemaligen Einsatzorte des Gerätes zu ermitteln. Diese Information sollte nicht verlorengehen.
+**Hinweis: Bei Fernschreibern, die noch ihre historische Originalkennung besitzen, sollte diese auf keinen Fall verändert werden! Über die Kennung ist es meistens möglich, den ehemaligen Einsatzorte des Gerätes zu ermitteln. Diese Information sollte nicht verlorengehen!**
 
-Ausserdem gibt es aktuell keine Möglichkeit, die meistens aus Federstahl bestehenden Kämme zu vertretbaren Kosten nachzufertigen. Das heisst, die Anzahl der nutzbaren Kämme nimmt mit jeder Modifikation ab.
+**Ausserdem gibt es aktuell keine Möglichkeit, die meistens aus Federstahl bestehenden Kämme zu vertretbaren Kosten nachzufertigen. Das heisst, die Anzahl der nutzbaren Kämme nimmt mit jeder Modifikation ab!**
