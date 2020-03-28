@@ -7,7 +7,7 @@ Dieses Programm erstellt aus einem Pool an vorhandenen Kennungsgeber-Kämmen ein
 
 Auf der linken Seite können die vorhandenen Kämme erfasst werden. Falls die Kämme versehentlich spiegelverkehrt eingegeben wurden, kann die Bitanordnung nachträglich invertiert werden. Ebenso ist es möglich, die Reihenfolge der Kämme zu ändern und komplett zu invertieren.
 
-Damit eignet sich das Programm auch zu Analyse vorhandener Kennungsgeber, falls z.B. die Bitanordnung oder die Reihenfolge der Kämme unklar ist.
+Damit eignet sich das Programm auch zur Analyse vorhandener Kennungsgeber, falls z.B. die Bitanordnung oder die Reihenfolge der Kämme unklar ist.
 
 Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen Kämmen erzeugt werden kann und welche Kämme dafü geändert werden müssen.
 
