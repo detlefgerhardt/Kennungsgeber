@@ -9,7 +9,7 @@ Auf der linken Seite können die vorhandenen Kämme erfasst werden. Falls die K�
 
 Damit eignet sich das Programm auch zur Analyse vorhandener Kennungsgeber, falls z.B. die Bitanordnung oder die Reihenfolge der Kämme unklar ist.
 
-Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen Kämmen erzeugt werden kann und welche Kämme dafü geändert werden müssen.
+Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen Kämmen erzeugt werden kann und welche Kämme dafür geändert werden müssen.
 
 Vorsicht: Bitte überprüfe manuell, ob die Berechnungen des Progamms korrekt sind, bevor du Kämme unwiederbringlich modifizierst.
 
