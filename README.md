@@ -1,15 +1,16 @@
 # Kennungsgeber
- Editor für Fernschreiber-Kennungsgeber
+ Editor fÃ¼r mechanische Fernschreiber-Kennungsgeber
 
-Dieses Programm erstellt aus einem Pool an vorhandenen Kennungsgeber-Kämmen eine Wunschkennung. Dabei versucht das Programm, die Anzahl Modifikationen an den Kämmen zu minimieren.
+Dieses Programm erstellt aus einem Pool an vorhandenen Kennungsgeber-KÃ¤mmen eine Wunschkennung. Dabei versucht das Programm, die Anzahl der Modifikationen an den KÃ¤mmen zu minimieren, da diese bei mechanischen Kennungsgebern nicht rÃ¼ckgÃ¤ngig gemacht werden kÃ¶nnen.
 
  ![Screenshot](https://github.com/detlefgerhardt/Kennungsgeber/blob/master/screen.png)
 
-Auf der linken Seite können die vorhandenen Kämme erfasst werden. Falls die Kämme versehentlich spiegelverkehr eingegeben wurden, kann die Bitreihenfolge invertiert werden. Ebenso ist es möglich, die Reihenfolge der Kämme zu ändern und komplett zu invertieren.
+Auf der linken Seite kÃ¶nnen die vorhandenen KÃ¤mme erfasst werden. Falls die KÃ¤mme versehentlich spiegelverkehrt eingegeben wurden, kann die Bitreihenfolge nachtrÃ¤glich invertiert werden. Ebenso ist es mÃ¶glich, die Reihenfolge der KÃ¤mme zu Ã¤ndern und komplett zu invertieren.
 
-Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen Kämmen erzeugt werden kann und welche Kämme dafü geändert werden müssen.
+Auf der rechten Seite kann die Wunschkennung eingegeben werden. Mit Klick auf "Generate" wird berechnet, ob die Wunschkennung aus den vorhandenen KÃ¤mmen erzeugt werden kann und welche KÃ¤mme dafÃ¼ geÃ¤ndert werden mÃ¼ssen.
 
-Vorsicht: Bitte überprüfe manuell, ob die Berechnungen des Progamms korrekt sind, bevor du Kämme unwiederbringlich veränderst.
+Vorsicht: Bitte Ã¼berprÃ¼fe manuell, ob die Berechnungen des Progamms korrekt sind, bevor du KÃ¤mme unwiederbringlich modifizierst.
 
-Hinweis: Bei Fernschreibern, die noch ihre historische Originalkennung besitzen, sollte diese auf keinen Fall verändert werden! Über die Kennung ist es meistens möglich, den ehemaligen Einsatzorte des Gerätes zu ermitteln. Diese Information sollte nicht verlorengehen.
+Hinweis: Bei Fernschreibern, die noch ihre historische Originalkennung besitzen, sollte diese auf keinen Fall verÃ¤ndert werden! Ãœber die Kennung ist es meistens mÃ¶glich, den ehemaligen Einsatzorte des GerÃ¤tes zu ermitteln. Diese Information sollte nicht verlorengehen.
 
+Ausserdem gibt es aktuell keine MÃ¶glichkeit, die meistens aus Federstahl bestehenden KÃ¤mme zu vertretbaren Kosten nachzufertigen. Das heisst, die Anzahl der nutzbaren KÃ¤mme nimmt mit jeder Modifikation ab.
