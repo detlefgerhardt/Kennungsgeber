@@ -27,7 +27,7 @@ namespace Kennungsgeber
 		private KgType _kgType;
 
 		public delegate void UpdateEventHandler(List<CodeItem> codeList);
-		public event UpdateEventHandler Update;
+		public event UpdateEventHandler Changed;
 
 		private bool _swapButtons;
 		public bool SwapButtons
@@ -154,7 +154,7 @@ namespace Kennungsgeber
 			_codeList.Add(new CodeItem(0x1F));
 			_kgSelectedIndex = _codeList.Count - 1;
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void InsBtn_Click(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace Kennungsgeber
 
 			_codeList.Insert(_kgSelectedIndex, new CodeItem(0x1F));
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void DelBtn_Click(object sender, EventArgs e)
@@ -184,7 +184,7 @@ namespace Kennungsgeber
 				_kgSelectedIndex = _codeList.Count - 1;
 			}
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void UpBtn_Click(object sender, EventArgs e)
@@ -194,6 +194,8 @@ namespace Kennungsgeber
 				return;
 			}
 
+			int index = _kgSelectedIndex;
+
 			CodeItem codeItem = _codeList[_kgSelectedIndex];
 			_codeList.RemoveAt(_kgSelectedIndex);
 			_codeList.Insert(_kgSelectedIndex - 1, codeItem);
@@ -202,7 +204,7 @@ namespace Kennungsgeber
 				_kgSelectedIndex--;
 			}
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void DownBtn_Click(object sender, EventArgs e)
@@ -219,7 +221,7 @@ namespace Kennungsgeber
 				_kgSelectedIndex++;
 			}
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void SwapHorizBtn_Click(object sender, EventArgs e)
@@ -228,7 +230,7 @@ namespace Kennungsgeber
 			{
 				item.Code = CodeItem.InvertCode(item.Code);
 			}
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 			UpdateKg();
 		}
 
@@ -241,7 +243,7 @@ namespace Kennungsgeber
 			}
 			_codeList = invList;
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void KgView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -259,7 +261,7 @@ namespace Kennungsgeber
 			codeItem.Code ^= (byte)(1 << index);
 
 			UpdateKg();
-			Update?.Invoke(_codeList);
+			Changed?.Invoke(_codeList);
 		}
 
 		private void KgView_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.OrgKennungTb = new System.Windows.Forms.TextBox();
-			this.IstKennungLbl = new System.Windows.Forms.Label();
+			this.OrgKennungLbl = new System.Windows.Forms.Label();
 			this.WunschKennungLbl = new System.Windows.Forms.Label();
 			this.WunschKennungTb = new System.Windows.Forms.TextBox();
 			this.GenWunschKennungBtn = new System.Windows.Forms.Button();
@@ -53,15 +53,14 @@
 			this.OrgKennungTb.Size = new System.Drawing.Size(374, 26);
 			this.OrgKennungTb.TabIndex = 6;
 			// 
-			// IstKennungLbl
+			// OrgKennungLbl
 			// 
-			this.IstKennungLbl.AutoSize = true;
-			this.IstKennungLbl.Location = new System.Drawing.Point(675, 13);
-			this.IstKennungLbl.Name = "IstKennungLbl";
-			this.IstKennungLbl.Size = new System.Drawing.Size(73, 13);
-			this.IstKennungLbl.TabIndex = 7;
-			this.IstKennungLbl.Text = "Existing code:";
-			this.IstKennungLbl.Click += new System.EventHandler(this.IstKennungLbl_Click);
+			this.OrgKennungLbl.AutoSize = true;
+			this.OrgKennungLbl.Location = new System.Drawing.Point(675, 13);
+			this.OrgKennungLbl.Name = "OrgKennungLbl";
+			this.OrgKennungLbl.Size = new System.Drawing.Size(73, 13);
+			this.OrgKennungLbl.TabIndex = 7;
+			this.OrgKennungLbl.Text = "Existing code:";
 			// 
 			// WunschKennungLbl
 			// 
@@ -79,6 +78,7 @@
 			this.WunschKennungTb.Name = "WunschKennungTb";
 			this.WunschKennungTb.Size = new System.Drawing.Size(374, 26);
 			this.WunschKennungTb.TabIndex = 9;
+			this.WunschKennungTb.TextChanged += new System.EventHandler(this.WunschKennungTb_TextChanged);
 			// 
 			// GenWunschKennungBtn
 			// 
@@ -186,10 +186,11 @@
 			this.Controls.Add(this.GenWunschKennungBtn);
 			this.Controls.Add(this.WunschKennungTb);
 			this.Controls.Add(this.WunschKennungLbl);
-			this.Controls.Add(this.IstKennungLbl);
+			this.Controls.Add(this.OrgKennungLbl);
 			this.Controls.Add(this.OrgKennungTb);
 			this.Name = "MainForm";
 			this.Text = "Kennungsgeber";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -197,7 +198,7 @@
 
 		#endregion
 		private System.Windows.Forms.TextBox OrgKennungTb;
-		private System.Windows.Forms.Label IstKennungLbl;
+		private System.Windows.Forms.Label OrgKennungLbl;
 		private System.Windows.Forms.Label WunschKennungLbl;
 		private System.Windows.Forms.TextBox WunschKennungTb;
 		private System.Windows.Forms.Button GenWunschKennungBtn;

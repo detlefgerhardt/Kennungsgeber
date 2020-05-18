@@ -11,6 +11,7 @@ namespace Kennungsgeber
 	{
 		private List<CodeItem> _orgCodeList;
 		private List<CodeItem> _newCodeList;
+		private bool _changed;
 
 		public MainForm()
 		{
@@ -21,20 +22,140 @@ namespace Kennungsgeber
 			KgOrg.Init(KgListView.KgType.Org, true);
 			KgNew.Init(KgListView.KgType.New, false);
 
-			KgOrg.Update += KgOrg_Update;
+			KgOrg.Changed += KgOrg_Changed;
+			KgNew.Changed += KgNew_Changed; ;
 
-			//Load(@"d:\t68_3.kg");
 			//InitTestData();
 			UpdateKgOrg();
 			UpdateKgNew();
+
+			_changed = false;
 		}
 
-		private void KgOrg_Update(List<CodeItem> codeList)
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			_orgCodeList = codeList;
-			UpdateKgOrg();
+			//_log.Info(TAG, nameof(MainForm_FormClosing), $"close");
+			if (_changed)
+			{
+				DialogResult result = MessageBox.Show(
+					"Last changeds were not saved. Save now?",
+					$"Save",
+					MessageBoxButtons.YesNoCancel,
+					MessageBoxIcon.Information,
+					MessageBoxDefaultButton.Button3);
+
+				//_log.Info(TAG, nameof(MainForm_FormClosing), $"save answer={result}");
+
+				switch (result)
+				{
+					case DialogResult.Yes:
+						if (!SaveFile())
+						{
+							e.Cancel = true;
+						}
+						break;
+					case DialogResult.No:
+						break;
+					case DialogResult.Cancel:
+						e.Cancel = true;
+						break;
+				}
+			}
+
 		}
 
+		private void GenWunschKennungBtn_Click(object sender, EventArgs e)
+		{
+			string wk = WunschKennungTb.Text;
+			if (string.IsNullOrWhiteSpace(wk))
+			{
+				return;
+			}
+
+			FindKennung find = new FindKennung();
+			_newCodeList = find.Find(wk, _orgCodeList);
+			UpdateKgNew();
+		}
+
+		private void LoadFile(string fullName)
+		{
+			try
+			{
+				string fileContent = File.ReadAllText(fullName);
+				SaveData saveData = Helper.Deserialize<SaveData>(fileContent);
+				_orgCodeList = saveData.OrgCodeList;
+				//_orgCodeList.Sort(new CodeItemPosComparer());
+				_newCodeList = saveData.NewCodeList;
+				WunschKennungTb.Text = saveData.Wunschkennung;
+				UpdateKgOrg();
+				UpdateKgNew();
+				_changed = false;
+			}
+			catch (Exception)
+			{
+				ShowError($"Error reading {fullName}");
+			}
+
+			//saveData.InvOrgCode();
+		}
+
+		private void SaveBtn_Click(object sender, EventArgs e)
+		{
+			SaveFile();
+		}
+
+		private bool SaveFile()
+		{
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+			saveFileDialog.Filter = "kg files (*.kg)|*.kg|All files (*.*)|*.*";
+			saveFileDialog.FilterIndex = 1;
+			saveFileDialog.RestoreDirectory = true;
+
+			if (saveFileDialog.ShowDialog() != DialogResult.OK)
+			{
+				return false;
+			}
+
+			SaveData saveData = new SaveData();
+			saveData.Wunschkennung = WunschKennungTb.Text;
+			saveData.OrgCodeList = _orgCodeList;
+			saveData.NewCodeList = _newCodeList;
+
+			try
+			{
+				string fileContent = Helper.SerializeObject(saveData);
+				File.WriteAllText(saveFileDialog.FileName, fileContent);
+				_changed = false;
+				return true;
+			}
+			catch (Exception)
+			{
+				ShowError($"Error writing {saveFileDialog.FileName}");
+				return false;
+			}
+		}
+
+		private void KgOrg_Changed(List<CodeItem> codeList)
+		{
+			_changed = true;
+			_orgCodeList = codeList;
+			SetOrgKennung();
+		}
+
+		private void KgNew_Changed(List<CodeItem> codeList)
+		{
+			_changed = true;
+			_newCodeList = codeList;
+			SetNewKennung();
+		}
+
+		private void WunschKennungTb_TextChanged(object sender, EventArgs e)
+		{
+			_changed = true;
+		}
+
+		/*
 		private void InitTestData()
 		{
 			_orgCodeList = new List<CodeItem>();
@@ -66,6 +187,7 @@ namespace Kennungsgeber
 				_orgCodeList[i].OrgPositon = i;
 			}
 		}
+		*/
 
 		private void UpdateKgOrg()
 		{
@@ -114,33 +236,6 @@ namespace Kennungsgeber
 			NewKennungTb.Text = kenn;
 		}
 
-		private void GenWunschKennungBtn_Click(object sender, EventArgs e)
-		{
-			string wk = WunschKennungTb.Text;
-			if (string.IsNullOrWhiteSpace(wk))
-			{
-				return;
-			}
-
-			FindKennung find = new FindKennung();
-			_newCodeList = find.Find(wk, _orgCodeList);
-			UpdateKgNew();
-		}
-
-		/*
-		private void SetCodeList(List<CodeItem> codeList)
-		{
-			if (codeList!=null)
-			{
-				_codeList = codeList;
-			}
-			else
-			{
-				_codeList = new List<CodeItem>();
-			}
-		}
-		*/
-
 		private void LoadBtn_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -152,62 +247,19 @@ namespace Kennungsgeber
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				//Get the path of specified file
-				Load(openFileDialog.FileName);
-
-				/*
-				string filePath = openFileDialog.FileName;
-				string fileContent = File.ReadAllText(filePath);
-				SaveData saveData = Helper.Deserialize<SaveData>(fileContent);
-
-				//saveData.InvOrgCode();
-
-				_orgCodeList = saveData.OrgCodeList;
-				//_orgCodeList.Sort(new CodeItemPosComparer());
-				_newCodeList = saveData.NewCodeList;
-				WunschKennungTb.Text = saveData.Wunschkennung;
-				UpdateKgOrg();
-				UpdateKgNew();
-				*/
+				LoadFile(openFileDialog.FileName);
 			}
 		}
 
-		private void Load(string fullName)
+		private void ShowError(string text)
 		{
-			string fileContent = File.ReadAllText(fullName);
-			SaveData saveData = Helper.Deserialize<SaveData>(fileContent);
-
-			//saveData.InvOrgCode();
-
-			_orgCodeList = saveData.OrgCodeList;
-			//_orgCodeList.Sort(new CodeItemPosComparer());
-			_newCodeList = saveData.NewCodeList;
-			WunschKennungTb.Text = saveData.Wunschkennung;
-			UpdateKgOrg();
-			UpdateKgNew();
+			MessageBox.Show(
+				text,
+				$"Error",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error,
+				MessageBoxDefaultButton.Button1);
 		}
 
-		private void SaveBtn_Click(object sender, EventArgs e)
-		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-			saveFileDialog.Filter = "kg files (*.kg)|*.kg|All files (*.*)|*.*";
-			saveFileDialog.FilterIndex = 1;
-			saveFileDialog.RestoreDirectory = true;
-
-			if (saveFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				SaveData saveData = new SaveData();
-				saveData.Wunschkennung = WunschKennungTb.Text;
-				saveData.OrgCodeList = _orgCodeList;
-				saveData.NewCodeList = _newCodeList;
-				string fileContent = Helper.SerializeObject(saveData);
-				File.WriteAllText(saveFileDialog.FileName, fileContent);
-			}
-		}
-
-		private void IstKennungLbl_Click(object sender, EventArgs e)
-		{
-
-		}
 	}
 }
