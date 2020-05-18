@@ -23,7 +23,7 @@ namespace Kennungsgeber
 
 			KgOrg.Update += KgOrg_Update;
 
-			Load(@"d:\t68_3.kg");
+			//Load(@"d:\t68_3.kg");
 			//InitTestData();
 			UpdateKgOrg();
 			UpdateKgNew();
