@@ -20,25 +20,26 @@ namespace Kennungsgeber
 			int minModIndex = -1;
 			int maxFitCount = 0;
 			bool minModOk = false;
-			bool fitVariantEnd;
-			bool modVariantEnd;
+			//bool fitVariantEnd;
+			//bool modVariantEnd;
 			int modCount;
 			while (true)
 			{
 				ResetCodeList(oldCodeList);
 				ResetCodeList(modCodeList);
 
-				FindFitting(oldCodeList, modCodeList, fitIndex, out fitVariantEnd);
+				FindFitting(oldCodeList, modCodeList, fitIndex, out bool fitVariantEnd);
 
 				if (fitVariantEnd)
 				{
 					Debug.WriteLine($"fitVariantEnd fitIndex={fitIndex}");
 					fitIndex = 0;
 					modIndex++;
-					continue;
+					//continue;
 				}
 
-				bool modOk = FindModFitting(oldCodeList, modCodeList, modIndex, out modCount, out modVariantEnd);
+				bool modOk = FindModFitting(oldCodeList, modCodeList, modIndex, out modCount, out bool modVariantEnd);
+
 				int fitCount = FitCount(modCodeList);
 
 				if (modVariantEnd)
@@ -47,7 +48,7 @@ namespace Kennungsgeber
 					break;
 				}
 
-				Debug.WriteLine($"{fitIndex}/{modIndex} {modOk}/{minModOk} {modCount}/{minModCount} {minFitIndex}/{minModIndex}");
+				//Debug.WriteLine($"{fitIndex}/{modIndex} {modOk}/{minModOk} {modCount}/{minModCount} {minFitIndex}/{minModIndex}");
 				if (!minModOk && modOk)
 				{
 					// reset min/max values on first success
@@ -69,8 +70,8 @@ namespace Kennungsgeber
 			// repeat variant with lowest mod count
 			ResetCodeList(oldCodeList);
 			ResetCodeList(modCodeList);
-			FindFitting(oldCodeList, modCodeList, minFitIndex, out fitVariantEnd);
-			FindModFitting(oldCodeList, modCodeList, minModIndex, out modCount, out modVariantEnd);
+			FindFitting(oldCodeList, modCodeList, minFitIndex, out _);
+			FindModFitting(oldCodeList, modCodeList, minModIndex, out _, out _);
 
 			List<CodeItem> newCodeList = Compact(oldCodeList, modCodeList);
 			return newCodeList;
@@ -137,6 +138,14 @@ namespace Kennungsgeber
 			return fitCount2 * 100 + fitCount1;
 		}
 
+		/// <summary>
+		/// Markiert alle
+		/// </summary>
+		/// <param name="oldCodeList"></param>
+		/// <param name="newCodeList"></param>
+		/// <param name="variantIndex"></param>
+		/// <param name="variantEnd"></param>
+		/// <returns>true = exact fitting for all codes found</returns>
 		private bool FindFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out bool variantEnd)
 		{
 			int variantCount = 0;
@@ -171,6 +180,15 @@ namespace Kennungsgeber
 			return success;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="oldCodeList"></param>
+		/// <param name="newCodeList"></param>
+		/// <param name="variantIndex"></param>
+		/// <param name="totalModCount"></param>
+		/// <param name="variantEnd"></param>
+		/// <returns>true if mod fitting code found</returns>
 		private bool FindModFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out int totalModCount, out bool variantEnd)
 		{
 			int variantCount = 0;

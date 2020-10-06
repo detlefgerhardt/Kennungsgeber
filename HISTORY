@@ -5,3 +5,5 @@ Version history
 1.0.0.1 - Fixed missing debug file error
 1.0.0.2 - Improved error handling
         - Test file added
+1.0.0.3 - Generate did not work when all combs where complete
+        - New combs are added as complete combs now

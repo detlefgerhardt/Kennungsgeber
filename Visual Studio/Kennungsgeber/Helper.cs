@@ -6,7 +6,6 @@ namespace Kennungsgeber
 {
 	class Helper
 	{
-
 		public static string GetVersion()
 		{
 			string expireStr = "";

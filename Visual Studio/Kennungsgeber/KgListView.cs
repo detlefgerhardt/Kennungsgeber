@@ -162,7 +162,7 @@ namespace Kennungsgeber
 			if (_kgSelectedIndex == -1)
 				return;
 
-			_codeList.Insert(_kgSelectedIndex, new CodeItem(0x1F));
+			_codeList.Insert(_kgSelectedIndex, new CodeItem(0x00));
 			UpdateKg();
 			Changed?.Invoke(_codeList);
 		}
