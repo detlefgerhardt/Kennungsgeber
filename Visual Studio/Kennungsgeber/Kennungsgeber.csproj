@@ -57,6 +57,11 @@
     <Compile Include="KgListView.Designer.cs">
       <DependentUpon>KgListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Languages\Language.cs" />
+    <Compile Include="Languages\LanguageDeutsch.cs" />
+    <Compile Include="Languages\LanguageEnglish.cs" />
+    <Compile Include="Languages\LanguageManager.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

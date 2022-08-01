@@ -27,6 +27,8 @@ namespace Kennungsgeber
 		[DataMember]
 		public int? Reference { get; set; }
 
+		public bool Missing { get; set; }
+
 		public CodeItem(byte code)
 		{
 			OrgPositon = 0;
@@ -58,39 +60,67 @@ namespace Kennungsgeber
 			return chr != "X" ? chr : "";
 		}
 
-		public string GetCharText(ref ShiftState shiftState)
+		public string GetCharText(ref ShiftState shiftState, bool withCtrl)
 		{
-			string chr = GetCharText(shiftState);
+			string chr = GetCharText(shiftState, withCtrl);
 			shiftState = CheckShiftState(Code, shiftState);
 			return chr;
 		}
 
 
-		public string GetCharText(ShiftState shift)
+		public string GetCharText(ShiftState shift, bool withCtrl)
 		{
 			string chr = CodeToChar(Code, shift);
-			switch(chr)
+
+			if (withCtrl)
 			{
-				case "ZWR":
-					chr = " ";
-					break;
-				case "WR":
-					//chr = "<";
-					chr = "[WR]";
-					break;
-				case "ZL":
-					//chr = "\u2261";
-					chr = "[ZL]";
-					break;
-				case "NUL":
-					chr = "_";
-					break;
-				default:
-					if (chr.Length>1)
-					{
-						chr = "[" + chr + "]";
-					}
-					break;
+				switch (chr)
+				{
+					case "ZWR":
+						chr = " ";
+						break;
+					case "WR":
+						//chr = "<";
+						chr = "[WR]";
+						break;
+					case "ZL":
+						//chr = "\u2261";
+						chr = "[ZL]";
+						break;
+					default:
+						if (chr.Length > 1)
+						{
+							chr = "[" + chr + "]";
+						}
+						break;
+				}
+			}
+			else
+			{
+				switch (chr)
+				{
+					case "ZWR":
+					case "ZW":
+						chr = " ";
+						break;
+					case "WR":
+						chr = "<";
+						//chr = "[WR]";
+						break;
+					case "ZL":
+						chr = "\u2261";
+						//chr = "[ZL]";
+						break;
+					case "NUL":
+						chr = "_";
+						break;
+					default:
+						if (chr.Length > 1)
+						{
+							chr = "";
+						}
+						break;
+				}
 			}
 
 			return chr;

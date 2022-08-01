@@ -8,6 +8,10 @@ namespace Kennungsgeber
 {
 	static class Constants
 	{
-		public static string PROGRAM_NAME = "Kennungsgeber";
+		public const string PROGRAM_NAME = "Kennungsgeber";
+
+		public const string DEBUG_LOG = "kennungsgeber.log";
+
+		public const string DEFAULT_LANGUAGE = "de";
 	}
 }

@@ -21,6 +21,11 @@ namespace Kennungsgeber
 			return $"{Constants.PROGRAM_NAME}  V{Application.ProductVersion}  (Build={buildTime}) {expireStr}";
 		}
 
+		public static string GetExePath()
+		{
+			return Application.StartupPath;
+		}
+
 		public static string SerializeObject<T>(T objectToSerialize)
 		{
 			using (var memoryStream = new MemoryStream())

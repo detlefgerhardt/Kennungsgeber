@@ -28,71 +28,75 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.OrgKennungTb = new System.Windows.Forms.TextBox();
-			this.OrgKennungLbl = new System.Windows.Forms.Label();
-			this.WunschKennungLbl = new System.Windows.Forms.Label();
-			this.WunschKennungTb = new System.Windows.Forms.TextBox();
-			this.GenWunschKennungBtn = new System.Windows.Forms.Button();
+			this.OrgAswerbackTextTb = new System.Windows.Forms.TextBox();
+			this.OrgAnswerbackTextLbl = new System.Windows.Forms.Label();
+			this.FavoriteAnswerbackTextLbl = new System.Windows.Forms.Label();
+			this.FavoriteAnswerbackTextTb = new System.Windows.Forms.TextBox();
+			this.GenerateBtn = new System.Windows.Forms.Button();
 			this.LoadBtn = new System.Windows.Forms.Button();
 			this.SaveBtn = new System.Windows.Forms.Button();
-			this.NewKennungTb = new System.Windows.Forms.TextBox();
+			this.PossibleAnswerbackTextTb = new System.Windows.Forms.TextBox();
 			this.ToRightBtn = new System.Windows.Forms.Button();
 			this.ToLeftBtn = new System.Windows.Forms.Button();
-			this.KaemmeLbl = new System.Windows.Forms.Label();
-			this.WunschKgLbl = new System.Windows.Forms.Label();
-			this.KgNew = new Kennungsgeber.KgListView();
-			this.KgOrg = new Kennungsgeber.KgListView();
+			this.OrgAnswerbackCombsLbl = new System.Windows.Forms.Label();
+			this.PossibleAnswerbackCombsLbl = new System.Windows.Forms.Label();
+			this.PossibleAnswerbackKgList = new Kennungsgeber.KgListView();
+			this.OrgAnswerbackKgList = new Kennungsgeber.KgListView();
+			this.PossibleAnswerbackTextLbl = new System.Windows.Forms.Label();
+			this.ExplanationGb = new System.Windows.Forms.GroupBox();
+			this.LanguageBtn = new System.Windows.Forms.Button();
+			this.ShowControlCharactersCb = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
-			// OrgKennungTb
+			// OrgAswerbackTextTb
 			// 
-			this.OrgKennungTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.OrgKennungTb.Location = new System.Drawing.Point(678, 29);
-			this.OrgKennungTb.Name = "OrgKennungTb";
-			this.OrgKennungTb.ReadOnly = true;
-			this.OrgKennungTb.Size = new System.Drawing.Size(374, 26);
-			this.OrgKennungTb.TabIndex = 6;
+			this.OrgAswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OrgAswerbackTextTb.Location = new System.Drawing.Point(678, 29);
+			this.OrgAswerbackTextTb.Name = "OrgAswerbackTextTb";
+			this.OrgAswerbackTextTb.ReadOnly = true;
+			this.OrgAswerbackTextTb.Size = new System.Drawing.Size(374, 26);
+			this.OrgAswerbackTextTb.TabIndex = 6;
 			// 
-			// OrgKennungLbl
+			// OrgAnswerbackTextLbl
 			// 
-			this.OrgKennungLbl.AutoSize = true;
-			this.OrgKennungLbl.Location = new System.Drawing.Point(675, 13);
-			this.OrgKennungLbl.Name = "OrgKennungLbl";
-			this.OrgKennungLbl.Size = new System.Drawing.Size(73, 13);
-			this.OrgKennungLbl.TabIndex = 7;
-			this.OrgKennungLbl.Text = "Existing code:";
+			this.OrgAnswerbackTextLbl.AutoSize = true;
+			this.OrgAnswerbackTextLbl.Location = new System.Drawing.Point(675, 13);
+			this.OrgAnswerbackTextLbl.Name = "OrgAnswerbackTextLbl";
+			this.OrgAnswerbackTextLbl.Size = new System.Drawing.Size(127, 13);
+			this.OrgAnswerbackTextLbl.TabIndex = 7;
+			this.OrgAnswerbackTextLbl.Text = "Existing answerback text:";
 			// 
-			// WunschKennungLbl
+			// FavoriteAnswerbackTextLbl
 			// 
-			this.WunschKennungLbl.AutoSize = true;
-			this.WunschKennungLbl.Location = new System.Drawing.Point(675, 71);
-			this.WunschKennungLbl.Name = "WunschKennungLbl";
-			this.WunschKennungLbl.Size = new System.Drawing.Size(73, 13);
-			this.WunschKennungLbl.TabIndex = 8;
-			this.WunschKennungLbl.Text = "Desired code:";
+			this.FavoriteAnswerbackTextLbl.AutoSize = true;
+			this.FavoriteAnswerbackTextLbl.Location = new System.Drawing.Point(675, 71);
+			this.FavoriteAnswerbackTextLbl.Name = "FavoriteAnswerbackTextLbl";
+			this.FavoriteAnswerbackTextLbl.Size = new System.Drawing.Size(129, 13);
+			this.FavoriteAnswerbackTextLbl.TabIndex = 8;
+			this.FavoriteAnswerbackTextLbl.Text = "Favorite answerback text:";
 			// 
-			// WunschKennungTb
+			// FavoriteAnswerbackTextTb
 			// 
-			this.WunschKennungTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.WunschKennungTb.Location = new System.Drawing.Point(678, 87);
-			this.WunschKennungTb.Name = "WunschKennungTb";
-			this.WunschKennungTb.Size = new System.Drawing.Size(374, 26);
-			this.WunschKennungTb.TabIndex = 9;
-			this.WunschKennungTb.TextChanged += new System.EventHandler(this.WunschKennungTb_TextChanged);
+			this.FavoriteAnswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.FavoriteAnswerbackTextTb.Location = new System.Drawing.Point(678, 87);
+			this.FavoriteAnswerbackTextTb.Name = "FavoriteAnswerbackTextTb";
+			this.FavoriteAnswerbackTextTb.Size = new System.Drawing.Size(374, 26);
+			this.FavoriteAnswerbackTextTb.TabIndex = 9;
+			this.FavoriteAnswerbackTextTb.TextChanged += new System.EventHandler(this.FavoriteAnswerbackTextTb_TextChanged);
 			// 
-			// GenWunschKennungBtn
+			// GenerateBtn
 			// 
-			this.GenWunschKennungBtn.Location = new System.Drawing.Point(678, 151);
-			this.GenWunschKennungBtn.Name = "GenWunschKennungBtn";
-			this.GenWunschKennungBtn.Size = new System.Drawing.Size(75, 23);
-			this.GenWunschKennungBtn.TabIndex = 10;
-			this.GenWunschKennungBtn.Text = "Generate";
-			this.GenWunschKennungBtn.UseVisualStyleBackColor = true;
-			this.GenWunschKennungBtn.Click += new System.EventHandler(this.GenWunschKennungBtn_Click);
+			this.GenerateBtn.Location = new System.Drawing.Point(977, 211);
+			this.GenerateBtn.Name = "GenerateBtn";
+			this.GenerateBtn.Size = new System.Drawing.Size(75, 23);
+			this.GenerateBtn.TabIndex = 10;
+			this.GenerateBtn.Text = "Generate";
+			this.GenerateBtn.UseVisualStyleBackColor = true;
+			this.GenerateBtn.Click += new System.EventHandler(this.GenerateBtn_Click);
 			// 
 			// LoadBtn
 			// 
-			this.LoadBtn.Location = new System.Drawing.Point(678, 268);
+			this.LoadBtn.Location = new System.Drawing.Point(678, 211);
 			this.LoadBtn.Name = "LoadBtn";
 			this.LoadBtn.Size = new System.Drawing.Size(75, 23);
 			this.LoadBtn.TabIndex = 11;
@@ -102,7 +106,7 @@
 			// 
 			// SaveBtn
 			// 
-			this.SaveBtn.Location = new System.Drawing.Point(759, 268);
+			this.SaveBtn.Location = new System.Drawing.Point(759, 211);
 			this.SaveBtn.Name = "SaveBtn";
 			this.SaveBtn.Size = new System.Drawing.Size(75, 23);
 			this.SaveBtn.TabIndex = 12;
@@ -110,84 +114,134 @@
 			this.SaveBtn.UseVisualStyleBackColor = true;
 			this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
 			// 
-			// NewKennungTb
+			// PossibleAnswerbackTextTb
 			// 
-			this.NewKennungTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.NewKennungTb.Location = new System.Drawing.Point(678, 119);
-			this.NewKennungTb.Name = "NewKennungTb";
-			this.NewKennungTb.ReadOnly = true;
-			this.NewKennungTb.Size = new System.Drawing.Size(374, 26);
-			this.NewKennungTb.TabIndex = 15;
+			this.PossibleAnswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PossibleAnswerbackTextTb.Location = new System.Drawing.Point(678, 144);
+			this.PossibleAnswerbackTextTb.Name = "PossibleAnswerbackTextTb";
+			this.PossibleAnswerbackTextTb.ReadOnly = true;
+			this.PossibleAnswerbackTextTb.Size = new System.Drawing.Size(374, 26);
+			this.PossibleAnswerbackTextTb.TabIndex = 15;
 			// 
 			// ToRightBtn
 			// 
-			this.ToRightBtn.Location = new System.Drawing.Point(418, 223);
+			this.ToRightBtn.Enabled = false;
+			this.ToRightBtn.Location = new System.Drawing.Point(416, 223);
 			this.ToRightBtn.Name = "ToRightBtn";
-			this.ToRightBtn.Size = new System.Drawing.Size(27, 23);
+			this.ToRightBtn.Size = new System.Drawing.Size(25, 23);
 			this.ToRightBtn.TabIndex = 16;
 			this.ToRightBtn.Text = "->";
 			this.ToRightBtn.UseVisualStyleBackColor = true;
+			this.ToRightBtn.Click += new System.EventHandler(this.ToRightBtn_Click);
 			// 
 			// ToLeftBtn
 			// 
-			this.ToLeftBtn.Location = new System.Drawing.Point(418, 268);
+			this.ToLeftBtn.Enabled = false;
+			this.ToLeftBtn.Location = new System.Drawing.Point(416, 268);
 			this.ToLeftBtn.Name = "ToLeftBtn";
-			this.ToLeftBtn.Size = new System.Drawing.Size(27, 23);
+			this.ToLeftBtn.Size = new System.Drawing.Size(25, 23);
 			this.ToLeftBtn.TabIndex = 17;
 			this.ToLeftBtn.Text = "<-";
 			this.ToLeftBtn.UseVisualStyleBackColor = true;
 			// 
-			// KaemmeLbl
+			// OrgAnswerbackCombsLbl
 			// 
-			this.KaemmeLbl.AutoSize = true;
-			this.KaemmeLbl.Location = new System.Drawing.Point(9, 9);
-			this.KaemmeLbl.Name = "KaemmeLbl";
-			this.KaemmeLbl.Size = new System.Drawing.Size(174, 13);
-			this.KaemmeLbl.TabIndex = 18;
-			this.KaemmeLbl.Text = "Existing answerback code (combs):";
+			this.OrgAnswerbackCombsLbl.AutoSize = true;
+			this.OrgAnswerbackCombsLbl.Location = new System.Drawing.Point(9, 9);
+			this.OrgAnswerbackCombsLbl.Name = "OrgAnswerbackCombsLbl";
+			this.OrgAnswerbackCombsLbl.Size = new System.Drawing.Size(141, 13);
+			this.OrgAnswerbackCombsLbl.TabIndex = 18;
+			this.OrgAnswerbackCombsLbl.Text = "Existing answerback combs:";
 			// 
-			// WunschKgLbl
+			// PossibleAnswerbackCombsLbl
 			// 
-			this.WunschKgLbl.AutoSize = true;
-			this.WunschKgLbl.Location = new System.Drawing.Point(448, 9);
-			this.WunschKgLbl.Name = "WunschKgLbl";
-			this.WunschKgLbl.Size = new System.Drawing.Size(134, 13);
-			this.WunschKgLbl.TabIndex = 19;
-			this.WunschKgLbl.Text = "Desired answerback code:";
+			this.PossibleAnswerbackCombsLbl.AutoSize = true;
+			this.PossibleAnswerbackCombsLbl.Location = new System.Drawing.Point(448, 9);
+			this.PossibleAnswerbackCombsLbl.Name = "PossibleAnswerbackCombsLbl";
+			this.PossibleAnswerbackCombsLbl.Size = new System.Drawing.Size(168, 13);
+			this.PossibleAnswerbackCombsLbl.TabIndex = 19;
+			this.PossibleAnswerbackCombsLbl.Text = "New possible answerback combs:";
 			// 
-			// KgNew
+			// PossibleAnswerbackKgList
 			// 
-			this.KgNew.Location = new System.Drawing.Point(451, 26);
-			this.KgNew.Name = "KgNew";
-			this.KgNew.Size = new System.Drawing.Size(217, 548);
-			this.KgNew.TabIndex = 14;
+			this.PossibleAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.PossibleAnswerbackKgList.Location = new System.Drawing.Point(445, 29);
+			this.PossibleAnswerbackKgList.Name = "PossibleAnswerbackKgList";
+			this.PossibleAnswerbackKgList.Size = new System.Drawing.Size(225, 545);
+			this.PossibleAnswerbackKgList.TabIndex = 14;
 			// 
-			// KgOrg
+			// OrgAnswerbackKgList
 			// 
-			this.KgOrg.Location = new System.Drawing.Point(12, 26);
-			this.KgOrg.Name = "KgOrg";
-			this.KgOrg.Size = new System.Drawing.Size(400, 548);
-			this.KgOrg.TabIndex = 13;
+			this.OrgAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.OrgAnswerbackKgList.Location = new System.Drawing.Point(12, 29);
+			this.OrgAnswerbackKgList.Name = "OrgAnswerbackKgList";
+			this.OrgAnswerbackKgList.Size = new System.Drawing.Size(400, 544);
+			this.OrgAnswerbackKgList.TabIndex = 13;
+			// 
+			// PossibleAnswerbackTextLbl
+			// 
+			this.PossibleAnswerbackTextLbl.AutoSize = true;
+			this.PossibleAnswerbackTextLbl.Location = new System.Drawing.Point(675, 128);
+			this.PossibleAnswerbackTextLbl.Name = "PossibleAnswerbackTextLbl";
+			this.PossibleAnswerbackTextLbl.Size = new System.Drawing.Size(154, 13);
+			this.PossibleAnswerbackTextLbl.TabIndex = 20;
+			this.PossibleAnswerbackTextLbl.Text = "New possible answerback text:";
+			// 
+			// ExplanationGb
+			// 
+			this.ExplanationGb.Location = new System.Drawing.Point(678, 286);
+			this.ExplanationGb.Name = "ExplanationGb";
+			this.ExplanationGb.Size = new System.Drawing.Size(361, 257);
+			this.ExplanationGb.TabIndex = 21;
+			this.ExplanationGb.TabStop = false;
+			this.ExplanationGb.Text = "Help";
+			// 
+			// LanguageBtn
+			// 
+			this.LanguageBtn.Location = new System.Drawing.Point(963, 550);
+			this.LanguageBtn.Name = "LanguageBtn";
+			this.LanguageBtn.Size = new System.Drawing.Size(75, 23);
+			this.LanguageBtn.TabIndex = 22;
+			this.LanguageBtn.Text = "English";
+			this.LanguageBtn.UseVisualStyleBackColor = true;
+			this.LanguageBtn.Click += new System.EventHandler(this.LanguageBtn_Click);
+			// 
+			// ShowControlCharactersCb
+			// 
+			this.ShowControlCharactersCb.AutoSize = true;
+			this.ShowControlCharactersCb.Location = new System.Drawing.Point(678, 177);
+			this.ShowControlCharactersCb.Name = "ShowControlCharactersCb";
+			this.ShowControlCharactersCb.Size = new System.Drawing.Size(112, 17);
+			this.ShowControlCharactersCb.TabIndex = 23;
+			this.ShowControlCharactersCb.Text = "Control characters";
+			this.ShowControlCharactersCb.UseVisualStyleBackColor = true;
+			this.ShowControlCharactersCb.Click += new System.EventHandler(this.ShowControlCharactersCb_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1065, 584);
-			this.Controls.Add(this.WunschKgLbl);
-			this.Controls.Add(this.KaemmeLbl);
+			this.Controls.Add(this.ShowControlCharactersCb);
+			this.Controls.Add(this.LanguageBtn);
+			this.Controls.Add(this.ExplanationGb);
+			this.Controls.Add(this.PossibleAnswerbackTextLbl);
+			this.Controls.Add(this.PossibleAnswerbackCombsLbl);
+			this.Controls.Add(this.OrgAnswerbackCombsLbl);
 			this.Controls.Add(this.ToLeftBtn);
 			this.Controls.Add(this.ToRightBtn);
-			this.Controls.Add(this.NewKennungTb);
-			this.Controls.Add(this.KgNew);
-			this.Controls.Add(this.KgOrg);
+			this.Controls.Add(this.PossibleAnswerbackTextTb);
+			this.Controls.Add(this.PossibleAnswerbackKgList);
+			this.Controls.Add(this.OrgAnswerbackKgList);
 			this.Controls.Add(this.SaveBtn);
 			this.Controls.Add(this.LoadBtn);
-			this.Controls.Add(this.GenWunschKennungBtn);
-			this.Controls.Add(this.WunschKennungTb);
-			this.Controls.Add(this.WunschKennungLbl);
-			this.Controls.Add(this.OrgKennungLbl);
-			this.Controls.Add(this.OrgKennungTb);
+			this.Controls.Add(this.GenerateBtn);
+			this.Controls.Add(this.FavoriteAnswerbackTextTb);
+			this.Controls.Add(this.FavoriteAnswerbackTextLbl);
+			this.Controls.Add(this.OrgAnswerbackTextLbl);
+			this.Controls.Add(this.OrgAswerbackTextTb);
 			this.Name = "MainForm";
 			this.Text = "Kennungsgeber";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -197,20 +251,24 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.TextBox OrgKennungTb;
-		private System.Windows.Forms.Label OrgKennungLbl;
-		private System.Windows.Forms.Label WunschKennungLbl;
-		private System.Windows.Forms.TextBox WunschKennungTb;
-		private System.Windows.Forms.Button GenWunschKennungBtn;
+		private System.Windows.Forms.TextBox OrgAswerbackTextTb;
+		private System.Windows.Forms.Label OrgAnswerbackTextLbl;
+		private System.Windows.Forms.Label FavoriteAnswerbackTextLbl;
+		private System.Windows.Forms.TextBox FavoriteAnswerbackTextTb;
+		private System.Windows.Forms.Button GenerateBtn;
 		private System.Windows.Forms.Button LoadBtn;
 		private System.Windows.Forms.Button SaveBtn;
-		private KgListView KgOrg;
-		private KgListView KgNew;
-		private System.Windows.Forms.TextBox NewKennungTb;
+		private KgListView OrgAnswerbackKgList;
+		private KgListView PossibleAnswerbackKgList;
+		private System.Windows.Forms.TextBox PossibleAnswerbackTextTb;
 		private System.Windows.Forms.Button ToRightBtn;
 		private System.Windows.Forms.Button ToLeftBtn;
-		private System.Windows.Forms.Label KaemmeLbl;
-		private System.Windows.Forms.Label WunschKgLbl;
+		private System.Windows.Forms.Label OrgAnswerbackCombsLbl;
+		private System.Windows.Forms.Label PossibleAnswerbackCombsLbl;
+		private System.Windows.Forms.Label PossibleAnswerbackTextLbl;
+		private System.Windows.Forms.GroupBox ExplanationGb;
+		private System.Windows.Forms.Button LanguageBtn;
+		private System.Windows.Forms.CheckBox ShowControlCharactersCb;
 	}
 }
 

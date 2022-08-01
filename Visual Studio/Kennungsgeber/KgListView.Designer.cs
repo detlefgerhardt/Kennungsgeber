@@ -55,7 +55,7 @@
 			// AddBtn
 			// 
 			this.AddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.AddBtn.Location = new System.Drawing.Point(0, 316);
+			this.AddBtn.Location = new System.Drawing.Point(112, 316);
 			this.AddBtn.Name = "AddBtn";
 			this.AddBtn.Size = new System.Drawing.Size(50, 23);
 			this.AddBtn.TabIndex = 1;
@@ -66,7 +66,7 @@
 			// InsBtn
 			// 
 			this.InsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.InsBtn.Location = new System.Drawing.Point(56, 316);
+			this.InsBtn.Location = new System.Drawing.Point(0, 316);
 			this.InsBtn.Name = "InsBtn";
 			this.InsBtn.Size = new System.Drawing.Size(50, 23);
 			this.InsBtn.TabIndex = 2;
@@ -77,7 +77,7 @@
 			// DelBtn
 			// 
 			this.DelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.DelBtn.Location = new System.Drawing.Point(112, 316);
+			this.DelBtn.Location = new System.Drawing.Point(56, 316);
 			this.DelBtn.Name = "DelBtn";
 			this.DelBtn.Size = new System.Drawing.Size(50, 23);
 			this.DelBtn.TabIndex = 3;

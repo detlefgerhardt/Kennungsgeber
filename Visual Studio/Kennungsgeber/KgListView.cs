@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Kennungsgeber.Languages;
 
 namespace Kennungsgeber
 {
@@ -14,13 +16,22 @@ namespace Kennungsgeber
 	{
 		public enum KgType { Org, New };
 
+		public enum ItemType { Normal, OrgNotUsed, NewMissing }
+
+		private Color ColorNormal = Color.Black;
+		private Color ColorNotUsed = Color.LightGray;
+		private Color ColorMissing = Color.Orange;
+		private Color ColorRemove = Color.Red;
+
 		private List<CodeItem> _codeList;
 
-		private Bitmap _leerSchrittBlack;
-		private Bitmap _leerSchrittGray;
-		private Bitmap _stromSchrittBlack;
-		private Bitmap _stromSchrittGray;
-		private Bitmap _stromSchrittRed;
+		public static Bitmap NibImageNormal;
+		public static Bitmap NibImageUnused;
+		public static Bitmap NibImageMissing;
+		public static Bitmap NoNibImageNormal;
+		public static Bitmap NoNibImageUnused;
+		public static Bitmap NoNibImageRemove;
+		public static Bitmap NoNibImageMissing;
 
 		private int _kgSelectedIndex = -1;
 
@@ -126,15 +137,54 @@ namespace Kennungsgeber
 				var altCharCol = new DataGridViewTextBoxColumn
 				{
 					Name = "oldPos",
-					HeaderText = "Fr",
-					Width = 25
+					HeaderText = "Org",
+					Width = 34
 				};
 				KgView.Columns.Add(altCharCol);
 
-				this.Width = 217;
+				this.Width = 225;
+
+				AddBtn.Visible = false;
+				AddBtn.Enabled = false;
 			}
 
 			_kgSelectedIndex = 0;
+
+			LanguageManager.Instance.LanguageChanged += LanguageChanged;
+			LanguageManager.Instance.ChangeLanguage(Constants.DEFAULT_LANGUAGE);
+
+
+			NoNibImageNormal = GetImage(ColorNormal, false, false);
+			NoNibImageUnused = GetImage(ColorNotUsed, false, false);
+			NoNibImageMissing = GetImage(ColorMissing, false, false);
+			NoNibImageRemove = GetImage(ColorRemove, true, true);
+			NibImageNormal = GetImage(ColorNormal, true, false);
+			NibImageUnused = GetImage(ColorNotUsed, true, false);
+			NibImageMissing = GetImage(ColorMissing, true, false);
+		}
+
+		private void LanguageChanged()
+		{
+			//Logging.Instance.Log(LogTypes.Info, TAG, nameof(LanguageChanged), $"switch language to {LanguageManager.Instance.CurrentLanguage.Key}");
+			if (_kgType == KgType.Org)
+			{
+				KgView.Columns[9].HeaderText = LngText(LngKeys.Possible_Characters);
+			}
+			else
+			{
+				//KgView.Columns[8].HeaderText = LngText(LngKeys.Possible_Characters);
+			}
+
+			AddBtn.Text = LngText(LngKeys.CombsAdd);
+			InsBtn.Text = LngText(LngKeys.CombsInsert);
+			DelBtn.Text = LngText(LngKeys.CombsDelete);
+			UpBtn.Text = LngText(LngKeys.CombsUp);
+			DownBtn.Text = LngText(LngKeys.CombsDown);
+		}
+
+		private string LngText(LngKeys key)
+		{
+			return LanguageManager.Instance.GetText(key);
 		}
 
 		public void SetCodeList(List<CodeItem> codeList)
@@ -151,7 +201,7 @@ namespace Kennungsgeber
 
 		private void AddBtn_Click(object sender, EventArgs e)
 		{
-			_codeList.Add(new CodeItem(0x1F));
+			_codeList.Add(new CodeItem(0x00));
 			_kgSelectedIndex = _codeList.Count - 1;
 			UpdateKg();
 			Changed?.Invoke(_codeList);
@@ -159,8 +209,7 @@ namespace Kennungsgeber
 
 		private void InsBtn_Click(object sender, EventArgs e)
 		{
-			if (_kgSelectedIndex == -1)
-				return;
+			if (_kgSelectedIndex == -1) return;
 
 			_codeList.Insert(_kgSelectedIndex, new CodeItem(0x00));
 			UpdateKg();
@@ -256,7 +305,6 @@ namespace Kennungsgeber
 			int index = colIndex - 1;
 
 			int rowIndex = e.RowIndex;
-			//DataGridViewRow row = KgView.Rows[rowIndex];
 			CodeItem codeItem = _codeList[rowIndex];
 			codeItem.Code ^= (byte)(1 << index);
 
@@ -287,13 +335,6 @@ namespace Kennungsgeber
 
 		private void PopulateKgView(List<CodeItem> codeList, KgType kgType)
 		{
-
-			_leerSchrittBlack = GetImage(0, false, false);
-			_leerSchrittGray = GetImage(0, false, true);
-			_stromSchrittBlack = GetImage(1, false, false);
-			_stromSchrittGray = GetImage(1, false, true);
-			_stromSchrittRed = GetImage(0, true, false);
-
 			KgView.Rows.Clear();
 
 			List<DataGridViewRow> rows = new List<DataGridViewRow>();
@@ -308,45 +349,64 @@ namespace Kennungsgeber
 
 				byte[] codeArr = codeList[i].CodeArray;
 				byte[] modCodeArr = codeList[i].ModCodeArray;
-				bool gray = kgType == KgType.New & codeList[i].Reference == null;
-				Color blackGray = gray ? Color.DarkGray : Color.Black;
+
+				ItemType itemType;
+				if (kgType == KgType.Org)
+				{
+					itemType = codeList[i].Reference != null ? ItemType.Normal : ItemType.OrgNotUsed;
+				}
+				else
+				{
+					itemType = codeList[i].Reference != null ? ItemType.Normal : ItemType.NewMissing;
+				}
+
+				if (itemType == ItemType.NewMissing || itemType == ItemType.OrgNotUsed)
+				{
+					Debug.Write("");
+				}
+
+				Color itemCol;
+				switch (itemType)
+				{
+					case ItemType.Normal:
+					default:
+						itemCol = ColorNormal;
+						break;
+					case ItemType.OrgNotUsed:
+						itemCol = ColorNotUsed;
+						break;
+					case ItemType.NewMissing:
+						itemCol = ColorMissing;
+						break;
+				}
 
 				row.Cells[0].Value = $"{i + 1:D02}";
-				SetCellColor(row.Cells[0], blackGray);
+				SetCellColor(row.Cells[0], itemCol);
 				//row.Cells[6].Value = $"{codeList[i].Code:X02}";
 				row.Cells[6].Value = $"{codeList[i].Code:D02}";
-				SetCellColor(row.Cells[6], blackGray);
+				SetCellColor(row.Cells[6], itemCol);
 				row.Cells[7].Value = $"{codeList[i].GetChar(ref shiftState)}";
-				SetCellColor(row.Cells[7], blackGray);
+				SetCellColor(row.Cells[7], itemCol);
 				if (_kgType == KgType.Org)
 				{
 					row.Cells[8].Value = $"{codeList[i].GetChar(ref invShiftState)}";
-					SetCellColor(row.Cells[8], blackGray);
+					SetCellColor(row.Cells[8], itemCol);
 					row.Cells[9].Value = $"{codeList[i].GetModString(currentShiftState, true)}";
-					SetCellColor(row.Cells[9], blackGray);
+					SetCellColor(row.Cells[9], itemCol);
 				}
 				else
 				{
 					row.Cells[8].Value = $"{codeList[i].Reference + 1:D02}";
-					SetCellColor(row.Cells[8], blackGray);
+					SetCellColor(row.Cells[8], itemCol);
 				}
 
 				for (int c = 0; c < 5; c++)
 				{
 					DataGridViewImageCell imgCell = row.Cells[c + 1] as DataGridViewImageCell;
 
-					byte? modBit = null;
-					if (modCodeArr != null)
-					{
-						modBit = modCodeArr[c];
-					}
-
-					imgCell.Value = GetNibImage(codeArr[c], modBit, gray);
-
+					imgCell.Value = GetNibImage(codeArr[c], modCodeArr != null ? modCodeArr[c] : 1, itemType);
 					imgCell.ImageLayout = DataGridViewImageCellLayout.Stretch;
 				}
-
-
 				rows.Add(row);
 			}
 			KgView.Rows.AddRange(rows.ToArray());
@@ -357,61 +417,68 @@ namespace Kennungsgeber
 			}
 		}
 
-		private Image GetNibImage(byte bit, byte? modBit, bool gray)
+		/**
+		 * Get image for display of one comb nibble
+		 * bit: 0 = nibble, 1 = no nibble
+		 * orgBit: 0 = orignal nibble exists, 1 = original nibble missing
+		 * itemType: normal, unused or missing
+		 */
+		private Image GetNibImage(int bit, int orgBit, ItemType itemType)
 		{
+			Image noNibImage;
 			Image nibImage;
+			switch(itemType)
+			{
+				case ItemType.Normal:
+				default:
+					noNibImage = NoNibImageNormal;
+					nibImage = NibImageNormal;
+					break;
+				case ItemType.OrgNotUsed:
+					noNibImage = NoNibImageUnused;
+					nibImage = NibImageUnused;
+					orgBit = 1;
+					break;
+				case ItemType.NewMissing:
+					noNibImage = NoNibImageMissing;
+					nibImage = NibImageMissing;
+					orgBit = 1;
+					break;
+			}
 
-			Image stromSchritt = !gray ? _stromSchrittBlack : _stromSchrittGray;
-			Image leerSchritt = !gray ? _leerSchrittBlack : _leerSchrittGray;
-
+			Image bitImage;
 			if (bit == 0)
-			{   // 0 = leerschritt
-				nibImage = leerSchritt;
+			{
+				bitImage = nibImage;
 			}
 			else
 			{
-				// 1 = stromschritt
-				if (modBit == null || modBit == 1)
-				{
-					// old=1 show stromschritt
-					nibImage = stromSchritt;
-				}
-				else
-				{
-					// old=0 show mod stromschritt
-					nibImage = _stromSchrittRed;
-				}
+				bitImage = orgBit == 1 ? noNibImage : NoNibImageRemove;
 			}
 
-			return nibImage;
+			return bitImage;
 		}
 
 		private void SetCellColor(DataGridViewCell cell, Color color)
 		{
-			if (!(cell is DataGridViewTextBoxCell))
-			{
-				return;
-			}
+			if (!(cell is DataGridViewTextBoxCell)) return;
 
 			DataGridViewCellStyle style = cell.Style;
 			style.Font = new Font("Consolas", 10, FontStyle.Regular);
 			style.ForeColor = color;
-			//style.BackColor = rowAttr.BackColor;
 			cell.Style.ApplyStyle(style);
 		}
 
-		private Bitmap GetImage(int schritt, bool mod, bool gray)
+		private Bitmap GetImage(Color color, bool showNib, bool mod)
 		{
 			Bitmap bmp = new Bitmap(40, 40);
 			Graphics g = Graphics.FromImage(bmp);
-			Color blackGray = gray ? Color.DarkGray : Color.Black;
-			Color nibColor = mod ? Color.Red : blackGray;
-			Brush nibBrush = new SolidBrush(nibColor);
-			Brush blackGrayBrush = new SolidBrush(blackGray);
+			Brush nibBrush = new SolidBrush(color);
+			Brush blackGrayBrush = new SolidBrush(color);
 			g.Clear(Color.White);
 			g.FillRectangle(blackGrayBrush, 0, 32, 40, 6);
-			if (schritt == 0)
-			{   // leerschritt: draw nib
+			if (showNib)
+			{   // draw nibble
 				g.FillRectangle(nibBrush, 6, 8, 28, 24);
 				if (mod)
 				{
@@ -422,9 +489,10 @@ namespace Kennungsgeber
 				}
 			}
 			else
-			{   // stromschritt: no nib
+			{   // no nib
 			}
 			return bmp;
 		}
+
 	}
 }

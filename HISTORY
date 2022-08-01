@@ -7,3 +7,8 @@ Version history
         - Test file added
 1.0.0.3 - Generate did not work when all combs where complete
         - New combs are added as complete combs now
+1.1.0 - German and English version
+      - Help-Panel
+      - Show used and missing combs (different colors)
+      - Many minor changes
+

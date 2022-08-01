@@ -107,9 +107,9 @@ namespace Kennungsgeber
 				newCodeList.Add(new CodeItem(code.Value));
 			}
 
-			// insert after LTR or FIG
-			newCodeList.Insert(1, new CodeItem(CodeItem.CODE_WR));
-			newCodeList.Insert(2, new CodeItem(CodeItem.CODE_ZL));
+			// insert before LTR or FIG
+			newCodeList.Insert(0, new CodeItem(CodeItem.CODE_WR));
+			newCodeList.Insert(1, new CodeItem(CodeItem.CODE_ZL));
 
 			return newCodeList;
 		}
@@ -245,12 +245,15 @@ namespace Kennungsgeber
 			// add resolved codes
 			for (int i = 0; i < modCodeList.Count; i++)
 			{
-				if (modCodeList[i].Reference != null)
-				{
-					newCodeList.Add(modCodeList[i]);
-				}
+				//if (modCodeList[i].Reference != null)
+				//{
+				//	newCodeList.Add(modCodeList[i]);
+				//}
+				modCodeList[i].Missing = modCodeList[i].Reference == null;
+				newCodeList.Add(modCodeList[i]);
 			}
 
+			/*
 			// add unresolved codes
 			for (int i = 0; i < oldCodeList.Count; i++)
 			{
@@ -259,6 +262,7 @@ namespace Kennungsgeber
 					newCodeList.Add(oldCodeList[i]);
 				}
 			}
+			*/
 			return newCodeList;
 		}
 

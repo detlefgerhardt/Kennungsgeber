@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kennungsgeber.Languages;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,6 +10,8 @@ namespace Kennungsgeber
 {
 	public partial class MainForm : Form
 	{
+		private const string TAG = nameof(MainForm);
+
 		private List<CodeItem> _orgCodeList;
 		private List<CodeItem> _newCodeList;
 		private bool _changed;
@@ -17,19 +20,29 @@ namespace Kennungsgeber
 		{
 			InitializeComponent();
 
+			Logging.Instance.LogfilePath = Helper.GetExePath();
+
 			this.Text = Helper.GetVersion();
 
-			KgOrg.Init(KgListView.KgType.Org, true);
-			KgNew.Init(KgListView.KgType.New, false);
+			ToRightBtn.Visible = false;
+			ToLeftBtn.Visible = false;
 
-			KgOrg.Changed += KgOrg_Changed;
-			KgNew.Changed += KgNew_Changed; ;
+			OrgAnswerbackKgList.Init(KgListView.KgType.Org, true);
+			PossibleAnswerbackKgList.Init(KgListView.KgType.New, false);
+
+			OrgAnswerbackKgList.Changed += KgOrg_Changed;
+			PossibleAnswerbackKgList.Changed += KgNew_Changed; ;
+
+			LanguageManager.Instance.LanguageChanged += LanguageChanged;
+			LanguageManager.Instance.ChangeLanguage(Constants.DEFAULT_LANGUAGE);
 
 			//InitTestData();
 			UpdateKgOrg();
 			UpdateKgNew();
 
 			_changed = false;
+
+			SetExplanationPanel();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -64,19 +77,6 @@ namespace Kennungsgeber
 
 		}
 
-		private void GenWunschKennungBtn_Click(object sender, EventArgs e)
-		{
-			string wk = WunschKennungTb.Text;
-			if (string.IsNullOrWhiteSpace(wk))
-			{
-				return;
-			}
-
-			FindKennung find = new FindKennung();
-			_newCodeList = find.Find(wk, _orgCodeList);
-			UpdateKgNew();
-		}
-
 		private void LoadFile(string fullName)
 		{
 			try
@@ -86,7 +86,7 @@ namespace Kennungsgeber
 				_orgCodeList = saveData.OrgCodeList;
 				//_orgCodeList.Sort(new CodeItemPosComparer());
 				_newCodeList = saveData.NewCodeList;
-				WunschKennungTb.Text = saveData.Wunschkennung;
+				FavoriteAnswerbackTextTb.Text = saveData.Wunschkennung;
 				UpdateKgOrg();
 				UpdateKgNew();
 				_changed = false;
@@ -118,7 +118,7 @@ namespace Kennungsgeber
 			}
 
 			SaveData saveData = new SaveData();
-			saveData.Wunschkennung = WunschKennungTb.Text;
+			saveData.Wunschkennung = FavoriteAnswerbackTextTb.Text;
 			saveData.OrgCodeList = _orgCodeList;
 			saveData.NewCodeList = _newCodeList;
 
@@ -136,6 +136,20 @@ namespace Kennungsgeber
 			}
 		}
 
+		private void GenerateBtn_Click(object sender, EventArgs e)
+		{
+			string wk = FavoriteAnswerbackTextTb.Text;
+			if (string.IsNullOrWhiteSpace(wk))
+			{
+				return;
+			}
+
+			FindKennung find = new FindKennung();
+			_newCodeList = find.Find(wk, _orgCodeList);
+			UpdateKgOrg();
+			UpdateKgNew();
+		}
+
 		private void KgOrg_Changed(List<CodeItem> codeList)
 		{
 			_changed = true;
@@ -150,9 +164,15 @@ namespace Kennungsgeber
 			SetNewKennung();
 		}
 
-		private void WunschKennungTb_TextChanged(object sender, EventArgs e)
+		private void FavoriteAnswerbackTextTb_TextChanged(object sender, EventArgs e)
 		{
 			_changed = true;
+		}
+
+		private void ShowControlCharactersCb_Click(object sender, EventArgs e)
+		{
+			SetOrgKennung();
+			SetNewKennung();
 		}
 
 		/*
@@ -195,7 +215,7 @@ namespace Kennungsgeber
 			{
 				_orgCodeList = new List<CodeItem>();
 			}
-			KgOrg.SetCodeList(_orgCodeList);
+			OrgAnswerbackKgList.SetCodeList(_orgCodeList);
 			SetOrgKennung();
 		}
 
@@ -205,7 +225,7 @@ namespace Kennungsgeber
 			{
 				_newCodeList = new List<CodeItem>();
 			}
-			KgNew.SetCodeList(_newCodeList);
+			PossibleAnswerbackKgList.SetCodeList(_newCodeList);
 			SetNewKennung();
 		}
 
@@ -215,10 +235,10 @@ namespace Kennungsgeber
 			ShiftState shiftState = ShiftState.Letters;
 			for (int i = 0; i < _orgCodeList.Count; i++)
 			{
-				string chr = _orgCodeList[i].GetCharText(ref shiftState);
+				string chr = _orgCodeList[i].GetCharText(ref shiftState, ShowControlCharactersCb.Checked);
 				kenn += chr;
 			}
-			OrgKennungTb.Text = kenn;
+			OrgAswerbackTextTb.Text = kenn;
 		}
 
 		private void SetNewKennung()
@@ -229,11 +249,11 @@ namespace Kennungsgeber
 			{
 				if (_newCodeList[i].Reference != null)
 				{
-					string chr = _newCodeList[i].GetCharText(ref shiftState);
+					string chr = _newCodeList[i].GetCharText(ref shiftState, ShowControlCharactersCb.Checked);
 					kenn += chr;
 				}
 			}
-			NewKennungTb.Text = kenn;
+			PossibleAnswerbackTextTb.Text = kenn;
 		}
 
 		private void LoadBtn_Click(object sender, EventArgs e)
@@ -261,5 +281,90 @@ namespace Kennungsgeber
 				MessageBoxDefaultButton.Button1);
 		}
 
+		private void ToRightBtn_Click(object sender, EventArgs e)
+		{
+		}
+
+		public void SetExplanationPanel()
+		{
+			ExplanationGb.Controls.Clear();
+
+			Label label = new Label();
+			label.Text = LngText(LngKeys.Help_Explanation);
+			label.Location = new Point(10, 20);
+			label.AutoSize = false;
+			label.Width = ExplanationGb.Width - 20;
+			label.Height = 70;
+			label.TextAlign = ContentAlignment.TopLeft;
+			ExplanationGb.Controls.Add(label);
+
+			int top = 100;
+			ExplanationGb.Controls.Add(GetNibPanel(10, top, KgListView.NibImageNormal, LngText(LngKeys.Help_NormalCombs)));
+			ExplanationGb.Controls.Add(GetNibPanel(10, top+20, KgListView.NibImageUnused, LngText(LngKeys.Help_UnusedCombs)));
+			ExplanationGb.Controls.Add(GetNibPanel(10, top+40, KgListView.NibImageMissing, LngText(LngKeys.Help_MissingCombs)));
+			ExplanationGb.Controls.Add(GetNibPanel(10, top+60, KgListView.NoNibImageRemove, LngText(LngKeys.Help_ModifiedCombs)));
+		}
+
+		public Panel GetNibPanel(int x, int y, Bitmap nibImg, string text)
+		{
+			Panel panel = new Panel();
+
+			PictureBox pb = new PictureBox();
+			pb.Image = new Bitmap(nibImg, new Size(15, 15));
+			pb.Location = new Point(0, 0);
+			pb.Width = pb.Image.Width;
+			pb.Height = pb.Image.Height;
+			panel.Controls.Add(pb);
+
+			Label label = new Label();
+			label.Text = text;
+			label.Location = new Point(20, 0);
+			label.AutoSize = true;
+			label.Height = 13;
+			label.TextAlign = ContentAlignment.MiddleLeft;
+			panel.Controls.Add(label);
+
+			panel.Location = new Point(x, y);
+			panel.Height = 19;
+			return panel;
+		}
+
+		private void LanguageChanged()
+		{
+			Logging.Instance.Log(LogTypes.Info, TAG, nameof(LanguageChanged), $"switch language to {LanguageManager.Instance.CurrentLanguage.Key}");
+
+			OrgAnswerbackCombsLbl.Text = LngText(LngKeys.ExistingAnswerbackCombs) + ":";
+			PossibleAnswerbackCombsLbl.Text = LngText(LngKeys.PossibleAnswerbackCombs) + ":";
+			OrgAnswerbackTextLbl.Text = LngText(LngKeys.ExistingAnswerbackText) + ":";
+			FavoriteAnswerbackTextLbl.Text = LngText(LngKeys.FavoriteAnswerbackText) + ":";
+			PossibleAnswerbackTextLbl.Text = LngText(LngKeys.PossibleAnswerbackText) + ":";
+			ShowControlCharactersCb.Text = LngText(LngKeys.ShowControlCharacters);
+			LoadBtn.Text = LngText(LngKeys.LoadButton);
+			SaveBtn.Text = LngText(LngKeys.SaveButton);
+			GenerateBtn.Text = LngText(LngKeys.GenerateButton);
+			ExplanationGb.Text = LngText(LngKeys.Help);
+			LanguageBtn.Text = LngText(LngKeys.LanguageButton);
+
+			SetExplanationPanel();
+		}
+
+		private string LngText(LngKeys key)
+		{
+			return LanguageManager.Instance.GetText(key);
+		}
+
+		private void LanguageBtn_Click(object sender, EventArgs e)
+		{
+			if (LanguageManager.Instance.CurrentLanguage.Key == "de")
+			{
+				LanguageManager.Instance.ChangeLanguage("en");
+				LanguageBtn.Text = "Deutsch";
+			}
+			else
+			{
+				LanguageManager.Instance.ChangeLanguage("de");
+				LanguageBtn.Text = "English";
+			}
+		}
 	}
 }
