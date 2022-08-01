@@ -61,7 +61,7 @@ namespace Kennungsgeber.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 28.03.2020 10:06 
+        ///   Looks up a localized string similar to 01.08.2022 17:06 
         ///.
         /// </summary>
         internal static string BuildDate {
