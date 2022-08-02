@@ -15,6 +15,7 @@ namespace Kennungsgeber
 		private List<CodeItem> _orgCodeList;
 		private List<CodeItem> _newCodeList;
 		private bool _changed;
+		private bool _enterOrgKgByTest;
 
 		public MainForm()
 		{
@@ -37,12 +38,22 @@ namespace Kennungsgeber
 			LanguageManager.Instance.ChangeLanguage(Constants.DEFAULT_LANGUAGE);
 
 			//InitTestData();
+			InitKgOrg();
 			UpdateKgOrg();
 			UpdateKgNew();
 
 			_changed = false;
+			_enterOrgKgByTest = false;
+			OrgAnswerbackTextTb.Enabled = true;
+			OrgAnswerbackTextTb.ReadOnly = true;
 
 			SetExplanationPanel();
+
+		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			ActiveControl = FavoriteAnswerbackTextTb;
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -51,8 +62,8 @@ namespace Kennungsgeber
 			if (_changed)
 			{
 				DialogResult result = MessageBox.Show(
-					"Last changeds were not saved. Save now?",
-					$"Save",
+					LngText(LngKeys.Save_Message),
+					LngText(LngKeys.Save_Caption),
 					MessageBoxButtons.YesNoCancel,
 					MessageBoxIcon.Information,
 					MessageBoxDefaultButton.Button3);
@@ -93,7 +104,7 @@ namespace Kennungsgeber
 			}
 			catch (Exception)
 			{
-				ShowError($"Error reading {fullName}");
+				ShowError($"{LngText(LngKeys.Load_Error)} {fullName}");
 			}
 
 			//saveData.InvOrgCode();
@@ -131,21 +142,16 @@ namespace Kennungsgeber
 			}
 			catch (Exception)
 			{
-				ShowError($"Error writing {saveFileDialog.FileName}");
+				ShowError($"{LngText(LngKeys.Save_Error)} {saveFileDialog.FileName}");
 				return false;
 			}
 		}
 
 		private void GenerateBtn_Click(object sender, EventArgs e)
 		{
-			string wk = FavoriteAnswerbackTextTb.Text;
-			if (string.IsNullOrWhiteSpace(wk))
-			{
-				return;
-			}
-
-			FindKennung find = new FindKennung();
-			_newCodeList = find.Find(wk, _orgCodeList);
+			if (string.IsNullOrEmpty(FavoriteAnswerbackTextTb.Text)) return;
+			FavoriteAnswerbackTextTb.Text = FindKennung.CleanCode(FavoriteAnswerbackTextTb.Text);
+			_newCodeList = FindKennung.Find(FavoriteAnswerbackTextTb.Text, _orgCodeList);
 			UpdateKgOrg();
 			UpdateKgNew();
 		}
@@ -175,39 +181,19 @@ namespace Kennungsgeber
 			SetNewKennung();
 		}
 
-		/*
-		private void InitTestData()
+		private void InitKgOrg()
 		{
 			_orgCodeList = new List<CodeItem>();
-
-			_orgCodeList.Add(new CodeItem(0x1F));
-			_orgCodeList.Add(new CodeItem(0x08));
-			_orgCodeList.Add(new CodeItem(0x02));
-			_orgCodeList.Add(new CodeItem(0x08));
-			_orgCodeList.Add(new CodeItem(0x13));
-			_orgCodeList.Add(new CodeItem(0x0A));
-			_orgCodeList.Add(new CodeItem(0x0A));
-			_orgCodeList.Add(new CodeItem(0x02));
-			_orgCodeList.Add(new CodeItem(0x16));
-			_orgCodeList.Add(new CodeItem(0x04));
-			_orgCodeList.Add(new CodeItem(0x1F));
-			_orgCodeList.Add(new CodeItem(0x0D));
-			_orgCodeList.Add(new CodeItem(0x03));
-			_orgCodeList.Add(new CodeItem(0x0E));
-			_orgCodeList.Add(new CodeItem(0x0A));
-			_orgCodeList.Add(new CodeItem(0x00));
-			_orgCodeList.Add(new CodeItem(0x08));
-			_orgCodeList.Add(new CodeItem(0x0F));
-			_orgCodeList.Add(new CodeItem(0x1F));
-			_orgCodeList.Add(new CodeItem(0x00));
-			_orgCodeList.Add(new CodeItem(0x1F));
+			for (int i=0; i<20; i++)
+			{
+				_orgCodeList.Add(new CodeItem(0x00));
+			}
 
 			for (int i = 0; i < _orgCodeList.Count; i++)
 			{
 				_orgCodeList[i].OrgPositon = i;
 			}
 		}
-		*/
 
 		private void UpdateKgOrg()
 		{
@@ -238,7 +224,7 @@ namespace Kennungsgeber
 				string chr = _orgCodeList[i].GetCharText(ref shiftState, ShowControlCharactersCb.Checked);
 				kenn += chr;
 			}
-			OrgAswerbackTextTb.Text = kenn;
+			OrgAnswerbackTextTb.Text = kenn;
 		}
 
 		private void SetNewKennung()
@@ -296,6 +282,7 @@ namespace Kennungsgeber
 			label.Width = ExplanationGb.Width - 20;
 			label.Height = 70;
 			label.TextAlign = ContentAlignment.TopLeft;
+			label.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
 			ExplanationGb.Controls.Add(label);
 
 			int top = 100;
@@ -366,5 +353,42 @@ namespace Kennungsgeber
 				LanguageBtn.Text = "English";
 			}
 		}
+
+		private void OrgAnswerbackTextTb_DoubleClick(object sender, EventArgs e)
+		{
+			if (_enterOrgKgByTest) return; // already active
+
+			_enterOrgKgByTest = true;
+			OrgAnswerbackTextTb.ReadOnly = false;
+		}
+
+		private void OrgAnswerbackTextTb_Leave(object sender, EventArgs e)
+		{
+			if (!_enterOrgKgByTest) return; // not active, can this happen?
+
+			DialogResult result = MessageBox.Show(
+				LngText(LngKeys.OverwriteAllCombs_Message),
+				LngText(LngKeys.OverwriteAllCombs_Caption),
+				MessageBoxButtons.OKCancel,
+				MessageBoxIcon.Information,
+				MessageBoxDefaultButton.Button2);
+
+			if (result != DialogResult.OK)
+			{
+				SetOrgKennung();
+			}
+			else
+			{
+				// create original combs from answer back text
+				OrgAnswerbackTextTb.Text = FindKennung.CleanCode(OrgAnswerbackTextTb.Text);
+				_orgCodeList = FindKennung.ConvertToCodeList(OrgAnswerbackTextTb.Text);
+				UpdateKgOrg();
+				_changed = true;
+			}
+
+			_enterOrgKgByTest = false;
+			OrgAnswerbackTextTb.ReadOnly = true;
+		}
+
 	}
 }

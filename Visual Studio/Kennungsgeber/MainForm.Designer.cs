@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.OrgAswerbackTextTb = new System.Windows.Forms.TextBox();
+			this.OrgAnswerbackTextTb = new System.Windows.Forms.TextBox();
 			this.OrgAnswerbackTextLbl = new System.Windows.Forms.Label();
 			this.FavoriteAnswerbackTextLbl = new System.Windows.Forms.Label();
 			this.FavoriteAnswerbackTextTb = new System.Windows.Forms.TextBox();
@@ -40,22 +40,26 @@
 			this.ToLeftBtn = new System.Windows.Forms.Button();
 			this.OrgAnswerbackCombsLbl = new System.Windows.Forms.Label();
 			this.PossibleAnswerbackCombsLbl = new System.Windows.Forms.Label();
-			this.PossibleAnswerbackKgList = new Kennungsgeber.KgListView();
-			this.OrgAnswerbackKgList = new Kennungsgeber.KgListView();
 			this.PossibleAnswerbackTextLbl = new System.Windows.Forms.Label();
 			this.ExplanationGb = new System.Windows.Forms.GroupBox();
 			this.LanguageBtn = new System.Windows.Forms.Button();
 			this.ShowControlCharactersCb = new System.Windows.Forms.CheckBox();
+			this.PossibleAnswerbackKgList = new Kennungsgeber.KgListView();
+			this.OrgAnswerbackKgList = new Kennungsgeber.KgListView();
 			this.SuspendLayout();
 			// 
-			// OrgAswerbackTextTb
+			// OrgAnswerbackTextTb
 			// 
-			this.OrgAswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.OrgAswerbackTextTb.Location = new System.Drawing.Point(678, 29);
-			this.OrgAswerbackTextTb.Name = "OrgAswerbackTextTb";
-			this.OrgAswerbackTextTb.ReadOnly = true;
-			this.OrgAswerbackTextTb.Size = new System.Drawing.Size(374, 26);
-			this.OrgAswerbackTextTb.TabIndex = 6;
+			this.OrgAnswerbackTextTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.OrgAnswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OrgAnswerbackTextTb.Location = new System.Drawing.Point(678, 29);
+			this.OrgAnswerbackTextTb.Name = "OrgAnswerbackTextTb";
+			this.OrgAnswerbackTextTb.ReadOnly = true;
+			this.OrgAnswerbackTextTb.Size = new System.Drawing.Size(374, 26);
+			this.OrgAnswerbackTextTb.TabIndex = 6;
+			this.OrgAnswerbackTextTb.DoubleClick += new System.EventHandler(this.OrgAnswerbackTextTb_DoubleClick);
+			this.OrgAnswerbackTextTb.Leave += new System.EventHandler(this.OrgAnswerbackTextTb_Leave);
 			// 
 			// OrgAnswerbackTextLbl
 			// 
@@ -77,16 +81,19 @@
 			// 
 			// FavoriteAnswerbackTextTb
 			// 
+			this.FavoriteAnswerbackTextTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.FavoriteAnswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.FavoriteAnswerbackTextTb.Location = new System.Drawing.Point(678, 87);
 			this.FavoriteAnswerbackTextTb.Name = "FavoriteAnswerbackTextTb";
-			this.FavoriteAnswerbackTextTb.Size = new System.Drawing.Size(374, 26);
+			this.FavoriteAnswerbackTextTb.Size = new System.Drawing.Size(293, 26);
 			this.FavoriteAnswerbackTextTb.TabIndex = 9;
 			this.FavoriteAnswerbackTextTb.TextChanged += new System.EventHandler(this.FavoriteAnswerbackTextTb_TextChanged);
 			// 
 			// GenerateBtn
 			// 
-			this.GenerateBtn.Location = new System.Drawing.Point(977, 211);
+			this.GenerateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.GenerateBtn.Location = new System.Drawing.Point(977, 89);
 			this.GenerateBtn.Name = "GenerateBtn";
 			this.GenerateBtn.Size = new System.Drawing.Size(75, 23);
 			this.GenerateBtn.TabIndex = 10;
@@ -116,6 +123,8 @@
 			// 
 			// PossibleAnswerbackTextTb
 			// 
+			this.PossibleAnswerbackTextTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.PossibleAnswerbackTextTb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.PossibleAnswerbackTextTb.Location = new System.Drawing.Point(678, 144);
 			this.PossibleAnswerbackTextTb.Name = "PossibleAnswerbackTextTb";
@@ -156,29 +165,11 @@
 			// PossibleAnswerbackCombsLbl
 			// 
 			this.PossibleAnswerbackCombsLbl.AutoSize = true;
-			this.PossibleAnswerbackCombsLbl.Location = new System.Drawing.Point(448, 9);
+			this.PossibleAnswerbackCombsLbl.Location = new System.Drawing.Point(442, 9);
 			this.PossibleAnswerbackCombsLbl.Name = "PossibleAnswerbackCombsLbl";
 			this.PossibleAnswerbackCombsLbl.Size = new System.Drawing.Size(168, 13);
 			this.PossibleAnswerbackCombsLbl.TabIndex = 19;
 			this.PossibleAnswerbackCombsLbl.Text = "New possible answerback combs:";
-			// 
-			// PossibleAnswerbackKgList
-			// 
-			this.PossibleAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.PossibleAnswerbackKgList.Location = new System.Drawing.Point(445, 29);
-			this.PossibleAnswerbackKgList.Name = "PossibleAnswerbackKgList";
-			this.PossibleAnswerbackKgList.Size = new System.Drawing.Size(225, 545);
-			this.PossibleAnswerbackKgList.TabIndex = 14;
-			// 
-			// OrgAnswerbackKgList
-			// 
-			this.OrgAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.OrgAnswerbackKgList.Location = new System.Drawing.Point(12, 29);
-			this.OrgAnswerbackKgList.Name = "OrgAnswerbackKgList";
-			this.OrgAnswerbackKgList.Size = new System.Drawing.Size(400, 544);
-			this.OrgAnswerbackKgList.TabIndex = 13;
 			// 
 			// PossibleAnswerbackTextLbl
 			// 
@@ -191,6 +182,9 @@
 			// 
 			// ExplanationGb
 			// 
+			this.ExplanationGb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.ExplanationGb.Location = new System.Drawing.Point(678, 286);
 			this.ExplanationGb.Name = "ExplanationGb";
 			this.ExplanationGb.Size = new System.Drawing.Size(361, 257);
@@ -200,6 +194,7 @@
 			// 
 			// LanguageBtn
 			// 
+			this.LanguageBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.LanguageBtn.Location = new System.Drawing.Point(963, 550);
 			this.LanguageBtn.Name = "LanguageBtn";
 			this.LanguageBtn.Size = new System.Drawing.Size(75, 23);
@@ -218,6 +213,24 @@
 			this.ShowControlCharactersCb.Text = "Control characters";
 			this.ShowControlCharactersCb.UseVisualStyleBackColor = true;
 			this.ShowControlCharactersCb.Click += new System.EventHandler(this.ShowControlCharactersCb_Click);
+			// 
+			// PossibleAnswerbackKgList
+			// 
+			this.PossibleAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.PossibleAnswerbackKgList.Location = new System.Drawing.Point(445, 29);
+			this.PossibleAnswerbackKgList.Name = "PossibleAnswerbackKgList";
+			this.PossibleAnswerbackKgList.Size = new System.Drawing.Size(225, 545);
+			this.PossibleAnswerbackKgList.TabIndex = 14;
+			// 
+			// OrgAnswerbackKgList
+			// 
+			this.OrgAnswerbackKgList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.OrgAnswerbackKgList.Location = new System.Drawing.Point(12, 29);
+			this.OrgAnswerbackKgList.Name = "OrgAnswerbackKgList";
+			this.OrgAnswerbackKgList.Size = new System.Drawing.Size(400, 544);
+			this.OrgAnswerbackKgList.TabIndex = 13;
 			// 
 			// MainForm
 			// 
@@ -241,17 +254,19 @@
 			this.Controls.Add(this.FavoriteAnswerbackTextTb);
 			this.Controls.Add(this.FavoriteAnswerbackTextLbl);
 			this.Controls.Add(this.OrgAnswerbackTextLbl);
-			this.Controls.Add(this.OrgAswerbackTextTb);
+			this.Controls.Add(this.OrgAnswerbackTextTb);
+			this.MinimumSize = new System.Drawing.Size(900, 540);
 			this.Name = "MainForm";
 			this.Text = "Kennungsgeber";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.TextBox OrgAswerbackTextTb;
+		private System.Windows.Forms.TextBox OrgAnswerbackTextTb;
 		private System.Windows.Forms.Label OrgAnswerbackTextLbl;
 		private System.Windows.Forms.Label FavoriteAnswerbackTextLbl;
 		private System.Windows.Forms.TextBox FavoriteAnswerbackTextTb;

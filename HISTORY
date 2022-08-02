@@ -1,14 +1,17 @@
-
 Version history
 
 1.0.0.0 - First version
 1.0.0.1 - Fixed missing debug file error
 1.0.0.2 - Improved error handling
-        - Test file added
+        - Example file added
 1.0.0.3 - Generate did not work when all combs where complete
         - New combs are added as complete combs now
 1.1.0 - German and English version
-      - Help-Panel
+      - Help panel
       - Show used and missing combs (different colors)
       - Many minor changes
-
+1.1.1 - Added some missing translations
+      - Added toolstips for most control elements and tab columns
+      - Program now start with a complete set of empty combs
+      - New Clear button to remove all combs
+      - Add button removed, use Insert button instead

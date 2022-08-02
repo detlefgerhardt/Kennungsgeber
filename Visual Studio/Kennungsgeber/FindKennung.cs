@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Kennungsgeber
 {
-	class FindKennung
+	static class FindKennung
 	{
-		public List<CodeItem> Find(string wunschKennung, List<CodeItem> oldCodeList)
+		public static List<CodeItem> Find(string wunschKennung, List<CodeItem> oldCodeList)
 		{
 			List<CodeItem> modCodeList = ConvertToCodeList(wunschKennung);
 
@@ -77,10 +77,9 @@ namespace Kennungsgeber
 			return newCodeList;
 		}
 
-		private List<CodeItem> ConvertToCodeList(string wunschKennung)
+		public static List<CodeItem> ConvertToCodeList(string wunschKennung)
 		{
 			List<CodeItem> newCodeList = new List<CodeItem>();
-			
 
 			ShiftState shiftState = ShiftState.Unknown;
 			for (int i = 0; i < wunschKennung.Length; i++)
@@ -114,7 +113,7 @@ namespace Kennungsgeber
 			return newCodeList;
 		}
 
-		private void ResetCodeList(List<CodeItem> codeList)
+		private static void ResetCodeList(List<CodeItem> codeList)
 		{
 			foreach (CodeItem codeItem in codeList)
 			{
@@ -123,7 +122,7 @@ namespace Kennungsgeber
 			}
 		}
 
-		private int FitCount(List<CodeItem> codeList)
+		private static int FitCount(List<CodeItem> codeList)
 		{
 			int fitCount1 = codeList.Count(x => x.Reference != null);
 			int fitCount2 = 0;
@@ -146,7 +145,7 @@ namespace Kennungsgeber
 		/// <param name="variantIndex"></param>
 		/// <param name="variantEnd"></param>
 		/// <returns>true = exact fitting for all codes found</returns>
-		private bool FindFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out bool variantEnd)
+		private static bool FindFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out bool variantEnd)
 		{
 			int variantCount = 0;
 			variantEnd = true;
@@ -189,7 +188,7 @@ namespace Kennungsgeber
 		/// <param name="totalModCount"></param>
 		/// <param name="variantEnd"></param>
 		/// <returns>true if mod fitting code found</returns>
-		private bool FindModFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out int totalModCount, out bool variantEnd)
+		private static bool FindModFitting(List<CodeItem> oldCodeList, List<CodeItem> newCodeList, int variantIndex, out int totalModCount, out bool variantEnd)
 		{
 			int variantCount = 0;
 			variantEnd = true;
@@ -238,7 +237,7 @@ namespace Kennungsgeber
 		/// <param name="oldCodeList"></param>
 		/// <param name="newCodeList"></param>
 		/// <returns></returns>
-		private List<CodeItem> Compact(List<CodeItem> oldCodeList, List<CodeItem> modCodeList)
+		private static List<CodeItem> Compact(List<CodeItem> oldCodeList, List<CodeItem> modCodeList)
 		{
 			List<CodeItem> newCodeList = new List<CodeItem>();
 
@@ -278,6 +277,19 @@ namespace Kennungsgeber
 				}
 			}
 			return count;
+		}
+
+		private const string CLEAN_CHARS = "abcdefghijklmnopqrstuvwxyz01234567890()/+-=?,.:' ";
+
+		public static string CleanCode(string str)
+		{
+			string newStr = "";
+			str = str.ToLower();
+			foreach(char chr in str)
+			{
+				if (CLEAN_CHARS.Contains(chr)) newStr += chr;
+			}
+			return newStr;
 		}
 	}
 }

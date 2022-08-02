@@ -40,19 +40,19 @@ namespace Kennungsgeber
 		public delegate void UpdateEventHandler(List<CodeItem> codeList);
 		public event UpdateEventHandler Changed;
 
-		private bool _swapButtons;
-		public bool SwapButtons
+		private bool _showSwapButtons;
+		public bool ShowSwapButtons
 		{
 			set
 			{
-				_swapButtons = value;
-				if (_swapButtons)
+				_showSwapButtons = value;
+				if (_showSwapButtons)
 				{
 					SwapHorizBtn.Text = "\u2194";
-					SwapHorizBtn.Font = new Font("Arial Unicode MS", 10);
-					//SwapHorizBtn.Padding = new Padding(2, -2, 2, 0);
+					//SwapHorizBtn.Text = "\u2B64";
+					SwapHorizBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Regular);
 					SwapVertBtn.Text = "\u2195";
-					SwapVertBtn.Font = new Font("Arial Unicode MS", 10);
+					SwapVertBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Regular);
 				}
 				else
 				{
@@ -67,10 +67,27 @@ namespace Kennungsgeber
 			InitializeComponent();
 		}
 
-		public void Init(KgType kgType, bool swapButtons)
+		public void Init(KgType kgType, bool showSwapButtons)
 		{
 			_kgType = kgType;
-			SwapButtons = swapButtons;
+
+			ShowSwapButtons = showSwapButtons;
+
+			InsBtn.Text = "\u227B\u2261";
+			//InsBtn.Text = "\u2945";
+			InsBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Regular);
+
+			DelBtn.Text = "\u2BBD";
+			DelBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Regular);
+
+			ClearBtn.Text = "\u2BBD\u2BBD\u2BBD";
+			ClearBtn.Font = new Font("Arial Unicode MS", 10, FontStyle.Regular);
+
+			UpBtn.Text = "\u2191";
+			UpBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Bold);
+
+			DownBtn.Text = "\u2193";
+			DownBtn.Font = new Font("Arial Unicode MS", 12, FontStyle.Bold);
 
 			KgView.MultiSelect = false;
 			KgView.BackgroundColor = Color.White;
@@ -79,6 +96,7 @@ namespace Kennungsgeber
 			//KgView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 			KgView.AllowUserToAddRows = false;
 			KgView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			KgView.ShowCellToolTips = true;
 
 			var countCol = new DataGridViewTextBoxColumn
 			{
@@ -137,22 +155,21 @@ namespace Kennungsgeber
 				var altCharCol = new DataGridViewTextBoxColumn
 				{
 					Name = "oldPos",
-					HeaderText = "Org",
+					HeaderText = "Ref",
 					Width = 34
 				};
 				KgView.Columns.Add(altCharCol);
 
 				this.Width = 225;
 
-				AddBtn.Visible = false;
-				AddBtn.Enabled = false;
+				ClearBtn.Visible = false;
+				ClearBtn.Enabled = false;
 			}
 
 			_kgSelectedIndex = 0;
 
 			LanguageManager.Instance.LanguageChanged += LanguageChanged;
 			LanguageManager.Instance.ChangeLanguage(Constants.DEFAULT_LANGUAGE);
-
 
 			NoNibImageNormal = GetImage(ColorNormal, false, false);
 			NoNibImageUnused = GetImage(ColorNotUsed, false, false);
@@ -168,18 +185,28 @@ namespace Kennungsgeber
 			//Logging.Instance.Log(LogTypes.Info, TAG, nameof(LanguageChanged), $"switch language to {LanguageManager.Instance.CurrentLanguage.Key}");
 			if (_kgType == KgType.Org)
 			{
-				KgView.Columns[9].HeaderText = LngText(LngKeys.Possible_Characters);
+				KgView.Columns[9].HeaderText = LngText(LngKeys.TabHeader_PossibleCharacters);
 			}
 			else
 			{
 				//KgView.Columns[8].HeaderText = LngText(LngKeys.Possible_Characters);
 			}
 
-			AddBtn.Text = LngText(LngKeys.CombsAdd);
-			InsBtn.Text = LngText(LngKeys.CombsInsert);
-			DelBtn.Text = LngText(LngKeys.CombsDelete);
-			UpBtn.Text = LngText(LngKeys.CombsUp);
-			DownBtn.Text = LngText(LngKeys.CombsDown);
+			//InsBtn.Text = LngText(LngKeys.CombsInsert);
+			Helper.SetToolTip(InsBtn, LngText(LngKeys.CombsInsert_ToolTip));
+			//DelBtn.Text = LngText(LngKeys.CombsDelete);
+			Helper.SetToolTip(DelBtn, LngText(LngKeys.CombsDelete_ToolTip));
+			//ClearBtn.Text = LngText(LngKeys.CombsClear);
+			Helper.SetToolTip(ClearBtn, LngText(LngKeys.CombsClear_ToolTip));
+			Helper.SetToolTip(SwapHorizBtn, LngText(LngKeys.CombsHorizMirror_ToolTip));
+			Helper.SetToolTip(SwapVertBtn, LngText(LngKeys.CombsVertMirror_ToolTip));
+			//UpBtn.Text = LngText(LngKeys.CombsUp);
+			Helper.SetToolTip(UpBtn, LngText(LngKeys.CombsUp_ToolTip));
+			//DownBtn.Text = LngText(LngKeys.CombsDown);
+			Helper.SetToolTip(DownBtn, LngText(LngKeys.CombsDown_ToolTip));
+
+			// update tooltips
+			UpdateKg();
 		}
 
 		private string LngText(LngKeys key)
@@ -199,17 +226,31 @@ namespace Kennungsgeber
 			UpdateKg();
 		}
 
-		private void AddBtn_Click(object sender, EventArgs e)
+		private void ClearBtn_Click(object sender, EventArgs e)
 		{
-			_codeList.Add(new CodeItem(0x00));
-			_kgSelectedIndex = _codeList.Count - 1;
+			DialogResult result = MessageBox.Show(
+				LngText(LngKeys.DeleteAllCombs_Message),
+				LngText(LngKeys.DeleteAllCombs_Caption),
+				MessageBoxButtons.OKCancel,
+				MessageBoxIcon.Warning,
+				MessageBoxDefaultButton.Button2);
+
+			if (result != DialogResult.OK) return;
+
+			_codeList.Clear();
+			_kgSelectedIndex = -1;
 			UpdateKg();
 			Changed?.Invoke(_codeList);
+
+			//_codeList.Add(new CodeItem(0x00));
+			//_kgSelectedIndex = _codeList.Count - 1;
+			//UpdateKg();
+			//Changed?.Invoke(_codeList);
 		}
 
 		private void InsBtn_Click(object sender, EventArgs e)
 		{
-			if (_kgSelectedIndex == -1) return;
+			if (_kgSelectedIndex == -1) _kgSelectedIndex = 0;
 
 			_codeList.Insert(_kgSelectedIndex, new CodeItem(0x00));
 			UpdateKg();
@@ -336,6 +377,7 @@ namespace Kennungsgeber
 		private void PopulateKgView(List<CodeItem> codeList, KgType kgType)
 		{
 			KgView.Rows.Clear();
+			if (_codeList == null) return;
 
 			List<DataGridViewRow> rows = new List<DataGridViewRow>();
 			ShiftState shiftState = ShiftState.Letters;
@@ -382,22 +424,30 @@ namespace Kennungsgeber
 
 				row.Cells[0].Value = $"{i + 1:D02}";
 				SetCellColor(row.Cells[0], itemCol);
-				//row.Cells[6].Value = $"{codeList[i].Code:X02}";
+
 				row.Cells[6].Value = $"{codeList[i].Code:D02}";
 				SetCellColor(row.Cells[6], itemCol);
+				row.Cells[6].ToolTipText = LngText(LngKeys.TabColumnCode_ToolTip);
+
 				row.Cells[7].Value = $"{codeList[i].GetChar(ref shiftState)}";
 				SetCellColor(row.Cells[7], itemCol);
+				row.Cells[7].ToolTipText = LngText(LngKeys.TabColumnChr_ToolTip);
+
 				if (_kgType == KgType.Org)
 				{
 					row.Cells[8].Value = $"{codeList[i].GetChar(ref invShiftState)}";
 					SetCellColor(row.Cells[8], itemCol);
+					row.Cells[8].ToolTipText = LngText(LngKeys.TabColumnAlt_ToolTip);
+
 					row.Cells[9].Value = $"{codeList[i].GetModString(currentShiftState, true)}";
 					SetCellColor(row.Cells[9], itemCol);
+					row.Cells[9].ToolTipText = LngText(LngKeys.TabColumnPossibleCharacters_ToolTip);
 				}
 				else
 				{
 					row.Cells[8].Value = $"{codeList[i].Reference + 1:D02}";
 					SetCellColor(row.Cells[8], itemCol);
+					row.Cells[8].ToolTipText = LngText(LngKeys.TabColumnReference_ToolTip);
 				}
 
 				for (int c = 0; c < 5; c++)
@@ -406,6 +456,7 @@ namespace Kennungsgeber
 
 					imgCell.Value = GetNibImage(codeArr[c], modCodeArr != null ? modCodeArr[c] : 1, itemType);
 					imgCell.ImageLayout = DataGridViewImageCellLayout.Stretch;
+					imgCell.ToolTipText = LngText(LngKeys.TabColumnCombs_ToolTip);
 				}
 				rows.Add(row);
 			}
