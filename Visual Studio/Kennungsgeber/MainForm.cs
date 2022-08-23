@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Kennungsgeber
@@ -118,7 +119,6 @@ namespace Kennungsgeber
 		private bool SaveFile()
 		{
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
-
 			saveFileDialog.Filter = "kg files (*.kg)|*.kg|All files (*.*)|*.*";
 			saveFileDialog.FilterIndex = 1;
 			saveFileDialog.RestoreDirectory = true;
@@ -390,5 +390,55 @@ namespace Kennungsgeber
 			OrgAnswerbackTextTb.ReadOnly = true;
 		}
 
+		private void SaveAsTextBtn_Click(object sender, EventArgs e)
+		{
+			string line = new string('-', 68);
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine(line);
+			sb.AppendLine($"{LngText(LngKeys.SaveTextCreatedWith)} {Helper.GetVersion().ToLower()}");
+			sb.AppendLine(line);
+			sb.AppendLine("");
+			sb.AppendLine(LngText(LngKeys.SaveTextExplanation));
+			sb.AppendLine("");
+			sb.AppendLine($"{LngText(LngKeys.SaveTextExistingCombs)}:");
+			sb.AppendLine("");
+			AddCodeListAsText(sb, _orgCodeList);
+			sb.AppendLine("");
+			sb.AppendLine(line);
+			sb.AppendLine("");
+			sb.AppendLine($"{LngText(LngKeys.SaveTextFavoriteAnswerbackText)}: {FavoriteAnswerbackTextTb.Text}");
+			sb.AppendLine("");
+			sb.AppendLine($"{LngText(LngKeys.SaveTextPossibleAnswerbackText)}: {PossibleAnswerbackTextTb.Text}");
+			sb.AppendLine("");
+			AddCodeListAsText(sb, _newCodeList);
+			sb.AppendLine("");
+			sb.AppendLine(line);
+
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "text files (*.txt)|*.txt|All files (*.*)|*.*";
+			saveFileDialog.FilterIndex = 1;
+			saveFileDialog.RestoreDirectory = true;
+
+			if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+
+			try
+			{
+				File.WriteAllText(saveFileDialog.FileName, sb.ToString());
+			}
+			catch(Exception ex)
+			{
+			}
+		}
+
+		private void AddCodeListAsText(StringBuilder sb, List<CodeItem> codeList)
+		{
+			sb.AppendLine("     1 2 3 4 5");
+			int idx = 1;
+			foreach (CodeItem codeItem in codeList)
+			{
+				sb.AppendLine($"  {idx:D02} {CodeItem.CodeToString(codeItem.CodeArray, "+", ".", " ")}");
+				idx++;
+			}
+		}
 	}
 }

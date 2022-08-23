@@ -51,6 +51,11 @@ namespace Kennungsgeber.Languages
 		OverwriteAllCombs_Caption,
 		OverwriteAllCombs_Message,
 		LanguageButton,
+		SaveTextCreatedWith,
+		SaveTextExplanation,
+		SaveTextExistingCombs,
+		SaveTextFavoriteAnswerbackText,
+		SaveTextPossibleAnswerbackText,
 	}
 
 	class Language

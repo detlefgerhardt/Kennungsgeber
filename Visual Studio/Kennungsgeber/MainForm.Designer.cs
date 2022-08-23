@@ -46,6 +46,7 @@
 			this.ShowControlCharactersCb = new System.Windows.Forms.CheckBox();
 			this.PossibleAnswerbackKgList = new Kennungsgeber.KgListView();
 			this.OrgAnswerbackKgList = new Kennungsgeber.KgListView();
+			this.SaveAsTextBtn = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// OrgAnswerbackTextTb
@@ -232,11 +233,22 @@
 			this.OrgAnswerbackKgList.Size = new System.Drawing.Size(400, 544);
 			this.OrgAnswerbackKgList.TabIndex = 13;
 			// 
+			// SaveAsTextBtn
+			// 
+			this.SaveAsTextBtn.Location = new System.Drawing.Point(840, 211);
+			this.SaveAsTextBtn.Name = "SaveAsTextBtn";
+			this.SaveAsTextBtn.Size = new System.Drawing.Size(75, 23);
+			this.SaveAsTextBtn.TabIndex = 24;
+			this.SaveAsTextBtn.Text = "Save Text";
+			this.SaveAsTextBtn.UseVisualStyleBackColor = true;
+			this.SaveAsTextBtn.Click += new System.EventHandler(this.SaveAsTextBtn_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1065, 584);
+			this.Controls.Add(this.SaveAsTextBtn);
 			this.Controls.Add(this.ShowControlCharactersCb);
 			this.Controls.Add(this.LanguageBtn);
 			this.Controls.Add(this.ExplanationGb);
@@ -284,6 +296,7 @@
 		private System.Windows.Forms.GroupBox ExplanationGb;
 		private System.Windows.Forms.Button LanguageBtn;
 		private System.Windows.Forms.CheckBox ShowControlCharactersCb;
+		private System.Windows.Forms.Button SaveAsTextBtn;
 	}
 }
 

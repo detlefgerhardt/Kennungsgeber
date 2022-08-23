@@ -52,6 +52,12 @@ namespace Kennungsgeber.Languages
 				{ LngKeys.OverwriteAllCombs_Caption, "overwrite" },
 				{ LngKeys.OverwriteAllCombs_Message, "Do you really want to overwrite all existing combs?" },
 				{ LngKeys.LanguageButton, "Deutsch" },
+
+				{ LngKeys.SaveTextCreatedWith, "created with" },
+				{ LngKeys.SaveTextExplanation, "+ = comb exists, . = comb removed" },
+				{ LngKeys.SaveTextExistingCombs, "existing combs" },
+				{ LngKeys.SaveTextFavoriteAnswerbackText, "favorite answerback text" },
+				{ LngKeys.SaveTextPossibleAnswerbackText, "possible answerback text" }
 			};
 
 			return lng;

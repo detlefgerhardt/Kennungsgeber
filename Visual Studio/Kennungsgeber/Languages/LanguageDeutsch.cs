@@ -54,6 +54,12 @@ namespace Kennungsgeber.Languages
 				{ LngKeys.OverwriteAllCombs_Caption, "Überschreiben" },
 				{ LngKeys.OverwriteAllCombs_Message, "Wirklich alle vorhandenen Kämme überschreiben?" },
 				{ LngKeys.LanguageButton, "English" },
+
+				{ LngKeys.SaveTextCreatedWith, "erzeugt mit" },
+				{ LngKeys.SaveTextExplanation, "+ = kamm vorhanden, . = kamm entfernt" },
+				{ LngKeys.SaveTextExistingCombs, "vorhandene kaemme" },
+				{ LngKeys.SaveTextFavoriteAnswerbackText, "gewuenschter kennungsgeber-text" },
+				{ LngKeys.SaveTextPossibleAnswerbackText, "moeglicher Kennungsgeber-Text" },
 			};
 
 			return lng;

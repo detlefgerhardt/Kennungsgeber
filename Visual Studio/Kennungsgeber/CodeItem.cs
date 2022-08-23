@@ -44,10 +44,6 @@ namespace Kennungsgeber
 
 		public string ModCodeArrayString => CodeToArrayStr(ModCode);
 
-		//public ShiftState? Shift { get; set; }
-
-		//public bool Used { get; set; } = false;
-
 		public string GetChar(ShiftState shift)
 		{
 			return CodeToChar(Code, shift);
@@ -334,6 +330,18 @@ namespace Kennungsgeber
 			}
 			return str;
 		}
+
+		public static string CodeToString(byte[] code, string mark, string space, string delim)
+		{
+			string codeStr = "";
+			foreach (byte b in code)
+			{
+				if (codeStr != "") codeStr += delim;
+				codeStr += b == 0 ? mark : space;
+			}
+			return codeStr;
+		}
+
 
 		public CodeItem GetCodeItemFromChr(char chr)
 		{
