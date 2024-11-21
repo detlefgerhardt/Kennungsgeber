@@ -9,7 +9,7 @@ namespace Kennungsgeber.Languages
 			Language lng = new Language("de", "Deutsch");
 			lng.Items = new Dictionary<LngKeys, string>
 			{
-				{ LngKeys.ExistingAnswerbackCombs, "Vorhandene Kämme" },
+				{ LngKeys.ExistingAnswerbackCombs, "Vorhandene Kämme (ändern mit Doppelklick auf die Zähne)" },
 				{ LngKeys.PossibleAnswerbackCombs, "Mögliche Kennungsgeber-Kämme" },
 				{ LngKeys.ExistingAnswerbackText, "Bestehender Kennungsgeber-Text" },
 				{ LngKeys.FavoriteAnswerbackText, "Gewünschter Kennungsgeber-Text" },
@@ -17,6 +17,7 @@ namespace Kennungsgeber.Languages
 				{ LngKeys.ShowControlCharacters, "Zeige Sonderzeichen" },
 				{ LngKeys.LoadButton, "Laden" },
 				{ LngKeys.SaveButton, "Speichern" },
+				{ LngKeys.SaveAsTextButton, "Text speichern" },
 				{ LngKeys.GenerateButton, "Erzeugen" },
 				// { LngKeys.CombsInsert, "Einf." },
 				{ LngKeys.CombsInsert_ToolTip, "Einen neuen Kamm einfügen" },
@@ -42,7 +43,7 @@ namespace Kennungsgeber.Languages
 					"Ändern der Kämme durch Doppelklick auf die Zähne."
 				},
 				{ LngKeys.Help_NormalCombs, "verwendete Kämme" },
-				{ LngKeys.Help_UnusedCombs, "nicht verwendete Kämme" },
+				{ LngKeys.Help_UnusedCombs, "(noch) nicht verwendete Kämme" },
 				{ LngKeys.Help_MissingCombs, "fehlende Kämme" },
 				{ LngKeys.Help_ModifiedCombs, "geänderte Kämme" },
 				{ LngKeys.Load_Error, "Fehler beim Laden von" },

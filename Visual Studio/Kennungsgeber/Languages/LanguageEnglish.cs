@@ -9,7 +9,7 @@ namespace Kennungsgeber.Languages
 			Language lng = new Language("en", "English");
 			lng.Items = new Dictionary<LngKeys, string>
 			{
-				{ LngKeys.ExistingAnswerbackCombs, "Existing combs" },
+				{ LngKeys.ExistingAnswerbackCombs, "Existing combs (change by double-clicking on the teeth)" },
 				{ LngKeys.PossibleAnswerbackCombs, "Possible answerback combs" },
 				{ LngKeys.ExistingAnswerbackText, "Existing answerback text" },
 				{ LngKeys.FavoriteAnswerbackText, "Favorite answerback text" },
@@ -17,6 +17,7 @@ namespace Kennungsgeber.Languages
 				{ LngKeys.ShowControlCharacters, "Show control characters" },
 				{ LngKeys.LoadButton, "Load" },
 				{ LngKeys.SaveButton, "Save" },
+				{ LngKeys.SaveAsTextButton, "Save text" },
 				{ LngKeys.GenerateButton, "Generate" },
 				// { LngKeys.CombsInsert, "Ins" },
 				{ LngKeys.CombsInsert_ToolTip, "Insert a new comb" },
@@ -40,7 +41,7 @@ namespace Kennungsgeber.Languages
 				{ LngKeys.Help, "Help" },
 				{ LngKeys.Help_Explanation, "Enter existing combs on the left side, enter your favorite answerback into the input field and press Generate. Or load existing answerback configuration." },
 				{ LngKeys.Help_NormalCombs, "used combs" },
-				{ LngKeys.Help_UnusedCombs, "not used combs" },
+				{ LngKeys.Help_UnusedCombs, "not (yet) used combs" },
 				{ LngKeys.Help_MissingCombs, "missing combs" },
 				{ LngKeys.Help_ModifiedCombs, "modified combs" },
 				{ LngKeys.Load_Error, "Error loading" },
